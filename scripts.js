@@ -85,13 +85,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize particle background
     new ParticleBackground('particle-canvas');
     
-    // Initialize AOS
+    // Disable AOS animations - show everything immediately
     if (typeof AOS !== 'undefined') {
         AOS.init({
-            duration: 1000,
+            duration: 0,
             once: true,
-            offset: 100,
-            easing: 'ease-in-out'
+            disable: true // Disable all animations
         });
     }
     
@@ -100,48 +99,25 @@ document.addEventListener('DOMContentLoaded', function() {
     // ========================================
     const mainContainer = document.getElementById('main-container');
     
+    // Show content immediately without waiting
     setTimeout(() => {
         const loadingScreen = document.getElementById('loading-screen');
-        gsap.to(loadingScreen, {
-            opacity: 0,
-            duration: 0.5,
-            onComplete: () => {
-                loadingScreen.style.display = 'none';
-                // Show main container
-                if (mainContainer) {
-                    mainContainer.classList.add('visible');
-                }
-            }
-        });
-        
-        // Initialize animations
-        initAnimations();
-    }, 2000);
+        loadingScreen.style.opacity = '0';
+        setTimeout(() => {
+            loadingScreen.style.display = 'none';
+        }, 500);
+    }, 1000); // Reduced from 2000ms to 1000ms
     
     // ========================================
-    // Typewriter Effect
+    // Show Title Immediately
     // ========================================
-    function typeWriter(element, text, speed = 100) {
-        let i = 0;
-        element.innerHTML = '';
-        
-        function type() {
-            if (i < text.length) {
-                element.innerHTML += text.charAt(i);
-                i++;
-                setTimeout(type, speed);
-            }
-        }
-        
-        type();
-    }
-    
     const mainTitle = document.getElementById('main-title');
     const titleText = "WE RUN YOUR APP";
     
-    setTimeout(() => {
-        typeWriter(mainTitle, titleText, 100);
-    }, 2500);
+    // Show title immediately without typewriter effect
+    if (mainTitle) {
+        mainTitle.textContent = titleText;
+    }
     
     // ========================================
     // Navigation
@@ -390,131 +366,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
-    // ========================================
-    // GSAP Animations
-    // ========================================
-    function initAnimations() {
-        // Register ScrollTrigger plugin
-        if (typeof ScrollTrigger !== 'undefined') {
-            gsap.registerPlugin(ScrollTrigger);
-        }
-        
-        // Hero animations
-        gsap.from('.hero-badge', {
-            opacity: 0,
-            y: -50,
-            duration: 1,
-            ease: 'back.out(1.7)',
-            delay: 0.3
-        });
-        
-        gsap.from('.hero-title', {
-            opacity: 0,
-            y: 50,
-            duration: 1,
-            ease: 'power3.out',
-            delay: 0.5
-        });
-        
-        gsap.from('.hero-subtitle', {
-            opacity: 0,
-            y: 30,
-            duration: 0.8,
-            ease: 'power2.out',
-            delay: 0.7
-        });
-        
-        gsap.from('.hero-description', {
-            opacity: 0,
-            y: 30,
-            duration: 0.8,
-            ease: 'power2.out',
-            delay: 0.9
-        });
-        
-        gsap.from('.hero-actions .btn', {
-            opacity: 0,
-            scale: 0.8,
-            duration: 0.8,
-            stagger: 0.2,
-            ease: 'back.out(1.7)',
-            delay: 1.1
-        });
-        
-        gsap.from('.hero-stats .stat-item', {
-            opacity: 0,
-            y: 30,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: 'power2.out',
-            delay: 1.3
-        });
-        
-        // Section animations with ScrollTrigger
-        if (typeof ScrollTrigger !== 'undefined') {
-            gsap.utils.toArray('.section-header').forEach(header => {
-                gsap.from(header, {
-                    scrollTrigger: {
-                        trigger: header,
-                        start: 'top 80%',
-                        toggleActions: 'play none none none'
-                    },
-                    opacity: 0,
-                    y: 50,
-                    duration: 1,
-                    ease: 'power3.out'
-                });
-            });
-            
-            // App cards animation
-            gsap.utils.toArray('.app-card').forEach((card, i) => {
-                gsap.from(card, {
-                    scrollTrigger: {
-                        trigger: card,
-                        start: 'top 85%',
-                        toggleActions: 'play none none none'
-                    },
-                    opacity: 0,
-                    y: 50,
-                    rotationY: -90,
-                    duration: 1,
-                    delay: i * 0.1,
-                    ease: 'power3.out'
-                });
-            });
-            
-            // Feature cards animation
-            gsap.utils.toArray('.feature-card').forEach((card, i) => {
-                gsap.from(card, {
-                    scrollTrigger: {
-                        trigger: card,
-                        start: 'top 85%',
-                        toggleActions: 'play none none none'
-                    },
-                    opacity: 0,
-                    y: 50,
-                    scale: 0.9,
-                    duration: 0.8,
-                    delay: i * 0.1,
-                    ease: 'back.out(1.7)'
-                });
-            });
-            
-            // CTA section animation
-            gsap.from('.cta-content', {
-                scrollTrigger: {
-                    trigger: '.cta-section',
-                    start: 'top 80%',
-                    toggleActions: 'play none none none'
-                },
-                opacity: 0,
-                scale: 0.9,
-                duration: 1,
-                ease: 'power3.out'
-            });
-        }
-    }
     
     // ========================================
     // 3D Card Effect on Mouse Move
