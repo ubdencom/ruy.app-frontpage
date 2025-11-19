@@ -61,6 +61,17 @@ body {
     transition: opacity 0.5s ease;
 }
 
+#main-container {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#main-container.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
 .loader {
     position: relative;
     display: flex;
@@ -615,6 +626,31 @@ body {
     font-size: 0.75rem;
     font-weight: 600;
     z-index: 1;
+}
+
+.app-info-btn {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    text-decoration: none;
+    z-index: 2;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.app-info-btn:hover {
+    background: var(--primary-color);
+    transform: scale(1.1) rotate(15deg);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
 }
 
 .app-title {

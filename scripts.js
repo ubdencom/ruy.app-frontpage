@@ -98,6 +98,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // ========================================
     // Loading Screen
     // ========================================
+    const mainContainer = document.getElementById('main-container');
+    
     setTimeout(() => {
         const loadingScreen = document.getElementById('loading-screen');
         gsap.to(loadingScreen, {
@@ -105,6 +107,10 @@ document.addEventListener('DOMContentLoaded', function() {
             duration: 0.5,
             onComplete: () => {
                 loadingScreen.style.display = 'none';
+                // Show main container
+                if (mainContainer) {
+                    mainContainer.classList.add('visible');
+                }
             }
         });
         
