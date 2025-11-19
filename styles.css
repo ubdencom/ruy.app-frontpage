@@ -14,6 +14,7 @@
     --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
     --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
     --glass-bg: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.1);
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -34,7 +35,7 @@ html {
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background: var(--dark-bg);
     color: var(--text-primary);
     line-height: 1.6;

@@ -85,6 +85,16 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize particle background
     new ParticleBackground('particle-canvas');
     
+    // Initialize AOS
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100,
+            easing: 'ease-in-out'
+        });
+    }
+    
     // ========================================
     // Loading Screen
     // ========================================
@@ -121,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     const mainTitle = document.getElementById('main-title');
-    const titleText = "WE ARE RUN YOUR APP";
+    const titleText = "WE RUN YOUR APP";
     
     setTimeout(() => {
         typeWriter(mainTitle, titleText, 100);
@@ -344,7 +354,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const message = contactForm.querySelector('textarea').value;
             
             // Show success message
-            alert('Mesajınız başarıyla gönderildi! En kısa sürede size dönüş yapacağız.');
+            alert('Your message has been sent successfully! We will get back to you as soon as possible.');
             
             // Reset form
             contactForm.reset();

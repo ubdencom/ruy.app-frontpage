@@ -1,19 +1,22 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title id="page-title">RUY.APP | WE ARE RUN YOUR APP</title>
-    <meta name="description" content="Next Generation Application Execution and Publishing Library">
-    <meta name="theme-color" content="#1a1a1a">
+    <title id="page-title">RUY.APP | WE RUN YOUR APP</title>
+    <meta name="description" content="Next Generation Application Execution and Publishing Library - Run Your App">
+    <meta name="theme-color" content="#0f0f23">
     
     <!-- FontAwesome for Social Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation Library -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
     
     <!-- Custom Styles -->
     <link rel="stylesheet" href="styles.css">
@@ -40,10 +43,10 @@
                 <span class="logo-text">RUY.APP</span>
             </div>
             <div class="nav-menu" id="nav-menu">
-                <a href="#hero" class="nav-link">Ana Sayfa</a>
-                <a href="#apps" class="nav-link">Uygulamalar</a>
-                <a href="#features" class="nav-link">Özellikler</a>
-                <a href="#contact" class="nav-link">İletişim</a>
+                <a href="#hero" class="nav-link">Home</a>
+                <a href="#apps" class="nav-link">Apps</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#contact" class="nav-link">Contact</a>
             </div>
             <div class="nav-toggle" id="nav-toggle">
                 <span></span>
@@ -70,33 +73,33 @@
                     <code class="code-accent">#&gt;</code>
                 </p>
                 <p class="hero-description">
-                    (Ru)n (Y)our (App) - Uygulamalarınızı hayata geçirmenin en modern yolu
+                    (Ru)n (Y)our (App) - The most modern way to bring your applications to life
                 </p>
                 <div class="hero-actions">
                     <a href="#apps" class="btn btn-primary">
-                        <i class="fas fa-rocket"></i> Uygulamaları Keşfet
+                        <i class="fas fa-rocket"></i> Explore Apps
                     </a>
                     <a href="#" class="btn btn-secondary" onclick="openContactPopup()">
-                        <i class="fas fa-envelope"></i> İletişime Geç
+                        <i class="fas fa-envelope"></i> Get in Touch
                     </a>
                 </div>
                 <div class="hero-stats">
                     <div class="stat-item">
                         <div class="stat-number" data-target="4">0</div>
-                        <div class="stat-label">Aktif Uygulama</div>
+                        <div class="stat-label">Active Apps</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-number" data-target="10000">0</div>
-                        <div class="stat-label">Kullanıcı</div>
+                        <div class="stat-label">Users</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-number" data-target="99">0</div>
-                        <div class="stat-label">% Memnuniyet</div>
+                        <div class="stat-label">% Satisfaction</div>
                     </div>
                 </div>
             </div>
             <div class="scroll-indicator">
-                <span>Aşağı kaydır</span>
+                <span>Scroll Down</span>
                 <i class="fas fa-chevron-down"></i>
             </div>
         </section>
@@ -104,18 +107,18 @@
         <!-- Apps Section -->
         <section id="apps" class="apps-section">
             <div class="section-header">
-                <h2 class="section-title">Uygulama Kütüphanesi</h2>
-                <p class="section-subtitle">Modern çözümlerle tanışın</p>
+                <h2 class="section-title">App Library</h2>
+                <p class="section-subtitle">Discover modern solutions</p>
             </div>
 
             <!-- Filter & Search -->
             <div class="filter-container">
                 <div class="search-box">
                     <i class="fas fa-search"></i>
-                    <input type="text" id="app-search" placeholder="Uygulama ara...">
+                    <input type="text" id="app-search" placeholder="Search applications...">
                 </div>
                 <div class="filter-tags">
-                    <button class="filter-tag active" data-filter="all">Tümü</button>
+                    <button class="filter-tag active" data-filter="all">All</button>
                     <button class="filter-tag" data-filter="ai">AI</button>
                     <button class="filter-tag" data-filter="payment">Payment</button>
                     <button class="filter-tag" data-filter="framework">Framework</button>
@@ -131,14 +134,14 @@
                         </div>
                         <div class="app-badge">AI Powered</div>
                         <h3 class="app-title">ResteChef</h3>
-                        <p class="app-description">Yapay zeka destekli gıda fazlası yönetimi ve tasarruf uygulaması</p>
+                        <p class="app-description">AI-powered food surplus management and savings application with smart recommendations</p>
                         <div class="app-tags">
                             <span class="tag">AI</span>
                             <span class="tag">Food Tech</span>
                             <span class="tag">Mobile</span>
                         </div>
                         <a href="https://play.google.com/store/apps/details?id=com.restechef.app" target="_blank" class="app-link">
-                            <i class="fas fa-external-link-alt"></i> Uygulamayı Aç
+                            <i class="fas fa-external-link-alt"></i> Launch App
                         </a>
                     </div>
                 </div>
@@ -150,14 +153,14 @@
                         </div>
                         <div class="app-badge">AI Assistant</div>
                         <h3 class="app-title">Kitchen AI</h3>
-                        <p class="app-description">Gelişmiş yapay zeka mutfak ve alışveriş asistanı</p>
+                        <p class="app-description">Advanced artificial intelligence kitchen and shopping assistant with recipe generation</p>
                         <div class="app-tags">
                             <span class="tag">AI</span>
                             <span class="tag">Assistant</span>
                             <span class="tag">Web</span>
                         </div>
                         <a href="https://kitchenai.ruy.app" target="_blank" class="app-link">
-                            <i class="fas fa-external-link-alt"></i> Uygulamayı Aç
+                            <i class="fas fa-external-link-alt"></i> Launch App
                         </a>
                     </div>
                 </div>
@@ -169,14 +172,14 @@
                         </div>
                         <div class="app-badge">Payment</div>
                         <h3 class="app-title">Iyzico FreePay</h3>
-                        <p class="app-description">Ücretsiz Iyzico ödeme altyapısı ve yönetim paneli</p>
+                        <p class="app-description">Free Iyzico payment infrastructure and management panel with complete integration</p>
                         <div class="app-tags">
                             <span class="tag">Payment</span>
                             <span class="tag">Panel</span>
                             <span class="tag">Free</span>
                         </div>
                         <a href="https://pay.ubd.one" target="_blank" class="app-link">
-                            <i class="fas fa-external-link-alt"></i> Uygulamayı Aç
+                            <i class="fas fa-external-link-alt"></i> Launch App
                         </a>
                     </div>
                 </div>
@@ -188,14 +191,14 @@
                         </div>
                         <div class="app-badge">Framework</div>
                         <h3 class="app-title">Coff PHP</h3>
-                        <p class="app-description">Hızlı geliştirme için hafif ve güçlü PHP framework</p>
+                        <p class="app-description">Lightweight and powerful PHP framework for rapid development and scalable applications</p>
                         <div class="app-tags">
                             <span class="tag">PHP</span>
                             <span class="tag">Framework</span>
                             <span class="tag">Open Source</span>
                         </div>
                         <a href="https://coff.dev" target="_blank" class="app-link">
-                            <i class="fas fa-external-link-alt"></i> Uygulamayı Aç
+                            <i class="fas fa-external-link-alt"></i> Launch App
                         </a>
                     </div>
                 </div>
@@ -205,51 +208,51 @@
         <!-- Features Section -->
         <section id="features" class="features-section">
             <div class="section-header">
-                <h2 class="section-title">Neden RUY.APP?</h2>
-                <p class="section-subtitle">Platform özelliklerimiz</p>
+                <h2 class="section-title">Why RUY.APP?</h2>
+                <p class="section-subtitle">Platform features</p>
             </div>
             <div class="features-grid">
                 <div class="feature-card" data-aos="fade-up">
                     <div class="feature-icon">
                         <i class="fas fa-bolt"></i>
                     </div>
-                    <h3 class="feature-title">Hızlı ve Güvenilir</h3>
-                    <p class="feature-description">Projeleriniz sorunsuz ve verimli bir şekilde çalışır. Yüksek performans garantisi.</p>
+                    <h3 class="feature-title">Fast & Reliable</h3>
+                    <p class="feature-description">Your projects run smoothly and efficiently. High performance guarantee with optimized infrastructure.</p>
                 </div>
                 <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="feature-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3 class="feature-title">Güvenli</h3>
-                    <p class="feature-description">Verilerinizin güvenliği en üst düzey önlemlerle korunur. SSL ve şifreleme.</p>
+                    <h3 class="feature-title">Secure</h3>
+                    <p class="feature-description">Your data security is protected with top-level measures. SSL encryption and firewall.</p>
                 </div>
                 <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="feature-icon">
                         <i class="fas fa-expand-arrows-alt"></i>
                     </div>
-                    <h3 class="feature-title">Ölçeklenebilir</h3>
-                    <p class="feature-description">Projeleriniz büyüdükçe kolayca ölçeklendirin. Otomatik load balancing.</p>
+                    <h3 class="feature-title">Scalable</h3>
+                    <p class="feature-description">Easily scale as your projects grow. Automatic load balancing and resource management.</p>
                 </div>
                 <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="feature-icon">
                         <i class="fas fa-cloud"></i>
                     </div>
                     <h3 class="feature-title">Cloud Native</h3>
-                    <p class="feature-description">Modern bulut altyapısı ile her yerden erişim. Global CDN desteği.</p>
+                    <p class="feature-description">Access from anywhere with modern cloud infrastructure. Global CDN support.</p>
                 </div>
                 <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
                     <div class="feature-icon">
                         <i class="fas fa-robot"></i>
                     </div>
-                    <h3 class="feature-title">AI Destekli</h3>
-                    <p class="feature-description">Yapay zeka entegrasyonu ile akıllı çözümler. Machine learning altyapısı.</p>
+                    <h3 class="feature-title">AI Powered</h3>
+                    <p class="feature-description">Smart solutions with artificial intelligence integration. Machine learning infrastructure.</p>
                 </div>
                 <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
                     <div class="feature-icon">
                         <i class="fas fa-headset"></i>
                     </div>
-                    <h3 class="feature-title">7/24 Destek</h3>
-                    <p class="feature-description">Her zaman yanınızdayız. Hızlı ve profesyonel destek ekibi.</p>
+                    <h3 class="feature-title">24/7 Support</h3>
+                    <p class="feature-description">We're always here for you. Fast and professional support team ready to help.</p>
                 </div>
             </div>
         </section>
@@ -257,14 +260,14 @@
         <!-- CTA Section -->
         <section class="cta-section">
             <div class="cta-content">
-                <h2 class="cta-title">Uygulamanızı Başlatmaya Hazır mısınız?</h2>
-                <p class="cta-description">Projelerinizi RUY.APP ile hayata geçirin ve fark yaratın</p>
+                <h2 class="cta-title">Ready to Launch Your App?</h2>
+                <p class="cta-description">Bring your projects to life with RUY.APP and make a difference</p>
                 <div class="cta-buttons">
                     <a href="#" class="btn btn-primary btn-lg" onclick="openContactPopup()">
-                        <i class="fas fa-rocket"></i> Hemen Başla
+                        <i class="fas fa-rocket"></i> Get Started
                     </a>
                     <a href="#" class="btn btn-outline btn-lg" onclick="openFeaturesPopup()">
-                        <i class="fas fa-info-circle"></i> Daha Fazla Bilgi
+                        <i class="fas fa-info-circle"></i> Learn More
                     </a>
                 </div>
             </div>
@@ -292,16 +295,16 @@
                     </div>
                 </div>
                 <div class="footer-section">
-                    <h4 class="footer-subtitle">Hızlı Linkler</h4>
+                    <h4 class="footer-subtitle">Quick Links</h4>
                     <ul class="footer-links">
-                        <li><a href="#apps">Uygulamalar</a></li>
-                        <li><a href="#features">Özellikler</a></li>
-                        <li><a href="#" onclick="openContactPopup()">İletişim</a></li>
-                        <li><a href="https://ubd.one/donate" target="_blank">Bağış Yap</a></li>
+                        <li><a href="#apps">Applications</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#" onclick="openContactPopup()">Contact</a></li>
+                        <li><a href="https://ubd.one/donate" target="_blank">Donate</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4 class="footer-subtitle">İletişim</h4>
+                    <h4 class="footer-subtitle">Contact</h4>
                     <ul class="footer-contact">
                         <li><i class="fas fa-envelope"></i> info@ruy.app</li>
                         <li><i class="fab fa-whatsapp"></i> +90 850 305 09 19</li>
@@ -310,7 +313,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2024 RUY.APP - Tüm hakları saklıdır | Powered by <a href="https://ubden.com" target="_blank">❤️ Ubden® Community</a></p>
+                <p>© 2024 RUY.APP - All rights reserved | Powered by <a href="https://ubden.com" target="_blank">❤️ Ubden® Community</a></p>
             </div>
         </footer>
     </div>
@@ -322,15 +325,15 @@
     <div id="features-popup" class="popup">
         <div class="popup-content">
             <span class="close" onclick="closeFeaturesPopup()">&times;</span>
-            <h2>Detaylı Özellikler</h2>
+            <h2>Detailed Features</h2>
             <div class="features-list">
                 <div class="popup-feature">
                     <div class="popup-feature-icon">
                         <i class="fas fa-rocket"></i>
                     </div>
                     <div class="popup-feature-content">
-                        <h4>Yüksek Performans</h4>
-                        <p>Optimize edilmiş altyapı ile saniyeler içinde yükleme ve işlem süreleri</p>
+                        <h4>High Performance</h4>
+                        <p>Optimized infrastructure with loading and processing times in seconds</p>
                     </div>
                 </div>
                 <div class="popup-feature">
@@ -338,8 +341,8 @@
                         <i class="fas fa-lock"></i>
                     </div>
                     <div class="popup-feature-content">
-                        <h4>Kurumsal Güvenlik</h4>
-                        <p>SSL/TLS şifreleme, DDoS koruması ve güvenlik duvarı</p>
+                        <h4>Enterprise Security</h4>
+                        <p>SSL/TLS encryption, DDoS protection and firewall</p>
                     </div>
                 </div>
                 <div class="popup-feature">
@@ -347,8 +350,8 @@
                         <i class="fas fa-chart-line"></i>
                     </div>
                     <div class="popup-feature-content">
-                        <h4>Otomatik Ölçeklendirme</h4>
-                        <p>Trafiğiniz arttıkça otomatik olarak kaynak ölçeklendirme</p>
+                        <h4>Auto Scaling</h4>
+                        <p>Automatic resource scaling as your traffic increases</p>
                     </div>
                 </div>
                 <div class="popup-feature">
@@ -356,8 +359,8 @@
                         <i class="fas fa-mobile-alt"></i>
                     </div>
                     <div class="popup-feature-content">
-                        <h4>Mobil Öncelikli</h4>
-                        <p>Tüm cihazlarda mükemmel çalışan responsive tasarım</p>
+                        <h4>Mobile First</h4>
+                        <p>Responsive design that works perfectly on all devices</p>
                     </div>
                 </div>
             </div>
@@ -368,7 +371,7 @@
     <div id="contact-popup" class="popup">
         <div class="popup-content">
             <span class="close" onclick="closeContactPopup()">&times;</span>
-            <h2>İletişim</h2>
+            <h2>Contact Us</h2>
             <div class="contact-grid">
                 <div class="contact-item">
                     <div class="contact-icon">
@@ -393,19 +396,19 @@
                         <i class="fas fa-map-marker-alt"></i>
                     </div>
                     <div class="contact-details">
-                        <h4>Adres</h4>
+                        <h4>Address</h4>
                         <p>312 W 2nd St Unit #A1052<br>Casper, WY 82601</p>
                     </div>
                 </div>
             </div>
             <div class="contact-form">
-                <h3>Mesaj Gönderin</h3>
+                <h3>Send Message</h3>
                 <form id="contact-form">
-                    <input type="text" placeholder="Adınız" required>
+                    <input type="text" placeholder="Your Name" required>
                     <input type="email" placeholder="Email" required>
-                    <textarea placeholder="Mesajınız" rows="4" required></textarea>
+                    <textarea placeholder="Your Message" rows="4" required></textarea>
                     <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-paper-plane"></i> Gönder
+                        <i class="fas fa-paper-plane"></i> Send
                     </button>
                 </form>
             </div>
