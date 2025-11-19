@@ -1,11 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title id="page-title">RUY.APP | WE ARE RUN YOUR APP</title>
+    <meta name="description" content="Next Generation Application Execution and Publishing Library">
+    <meta name="theme-color" content="#1a1a1a">
+    
     <!-- FontAwesome for Social Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <!-- Custom Styles -->
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -13,86 +22,343 @@
 
     <!-- Loading Screen -->
     <div id="loading-screen">
-        <div class="loading-text">Loading...</div>
+        <div class="loader">
+            <div class="loader-ring"></div>
+            <div class="loader-ring"></div>
+            <div class="loader-ring"></div>
+            <div class="loading-text">RUY.APP</div>
+        </div>
     </div>
 
-    <!-- Fullscreen Section -->
-    <div id="fullscreen">
-        <!-- Sıra dışı arka plan efekti -->
-        <div id="background-effect"></div>
-        <div class="content">
-            <div id="signboard">
-                <h1 id="main-title" class="display-4"></h1> <!-- Daktilo efekti için başlık boş bırakıldı -->
-                <code class="minimal-code"> <# Next Generation Application Execution and Publishing Library. 
-(Ru)n (Y)our (App) #> </code>
+    <!-- Particle Canvas -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">RUY.APP</span>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#hero" class="nav-link">Ana Sayfa</a>
+                <a href="#apps" class="nav-link">Uygulamalar</a>
+                <a href="#features" class="nav-link">Özellikler</a>
+                <a href="#contact" class="nav-link">İletişim</a>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div id="main-container">
         
- <!-- Projects Section -->
-        <div class="container" id="projects">
-            <div class="cards">
-                <div class="card project-tile" data-color="red">
-                    <h5 class="card-title">ResteChef</h5>
-                    <p class="card-text">AI food surplus management and savings application</p>
-					<a href="https://play.google.com/store/apps/details?id=com.restechef.app" target="_blank" class="btn dark-btn" >Run App</a>
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-icon">🚀</span>
+                    <span>Next Generation App Platform</span>
                 </div>
-                <div class="card project-tile" data-color="yellow">
-                    <h5 class="card-title">Kithcen AI</h5>
-                    <p class="card-text">Advanced AI Kitchen and Shopping Assistant</p>
-					<a href="https://kitchenai.ruy.app" target="_blank" class="btn dark-btn" >Run App</a>					
+                <h1 id="main-title" class="hero-title"></h1>
+                <p class="hero-subtitle">
+                    <code class="code-accent">&lt;#</code> 
+                    Next Generation Application Execution and Publishing Library
+                    <code class="code-accent">#&gt;</code>
+                </p>
+                <p class="hero-description">
+                    (Ru)n (Y)our (App) - Uygulamalarınızı hayata geçirmenin en modern yolu
+                </p>
+                <div class="hero-actions">
+                    <a href="#apps" class="btn btn-primary">
+                        <i class="fas fa-rocket"></i> Uygulamaları Keşfet
+                    </a>
+                    <a href="#" class="btn btn-secondary" onclick="openContactPopup()">
+                        <i class="fas fa-envelope"></i> İletişime Geç
+                    </a>
                 </div>
-                <div class="card project-tile" data-color="green">
-                    <h5 class="card-title">Iyzico FreePay Panel</h5>
-                    <p class="card-text">Iyzico free payment infrastructure and panel</p>
-					<a href="https://pay.ubd.one" target="_blank" class="btn dark-btn" >Run App</a>
-                </div>
-				 <div class="card project-tile" data-color="green">
-                    <h5 class="card-title">Coff PHP Framework</h5>
-                    <p class="card-text">A lightweight PHP framework for rapid development.</p>
-					<a href="https://coff.dev" target="_blank" class="btn dark-btn" >Run App</a>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="4">0</div>
+                        <div class="stat-label">Aktif Uygulama</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="10000">0</div>
+                        <div class="stat-label">Kullanıcı</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="99">0</div>
+                        <div class="stat-label">% Memnuniyet</div>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Buttons Section -->
-        <div class="button-section">
-            <a href="#" class="btn dark-btn" onclick="openFeaturesPopup()">Explore Features</a>
-            <a href="#" class="btn dark-btn" onclick="openContactPopup()">Contact Us</a>
-        </div>
-
-        <!-- Footer Content -->
-        <div class="footer-content">
-            <div class="social-icons">
-                <a href="https://twitter.com/ubden"><i class="fab fa-twitter"></i></a>
-                <a href="https://linkedin.com/company/ubden"><i class="fab fa-linkedin"></i></a>
-		    <a href="https://instagram.com/ubden"><i class="fab fa-instagram"></i></a>
-                <a href="https://ubd.one/donate"><i class="fab fa-dollar"></i></a>
+            <div class="scroll-indicator">
+                <span>Aşağı kaydır</span>
+                <i class="fas fa-chevron-down"></i>
             </div>
-			<p> Copyright 2024 - RUY.APP # Powered by <a href="https://ubden.com" target="_blank" class="minimal-code">❤️ Ubden® Community</a>
+        </section>
+
+        <!-- Apps Section -->
+        <section id="apps" class="apps-section">
+            <div class="section-header">
+                <h2 class="section-title">Uygulama Kütüphanesi</h2>
+                <p class="section-subtitle">Modern çözümlerle tanışın</p>
+            </div>
+
+            <!-- Filter & Search -->
+            <div class="filter-container">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="app-search" placeholder="Uygulama ara...">
                 </div>
-        </div>
+                <div class="filter-tags">
+                    <button class="filter-tag active" data-filter="all">Tümü</button>
+                    <button class="filter-tag" data-filter="ai">AI</button>
+                    <button class="filter-tag" data-filter="payment">Payment</button>
+                    <button class="filter-tag" data-filter="framework">Framework</button>
+                </div>
+            </div>
+
+            <!-- Apps Grid -->
+            <div class="apps-grid">
+                <div class="app-card" data-category="ai" data-aos="flip-left">
+                    <div class="app-card-inner">
+                        <div class="app-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="app-badge">AI Powered</div>
+                        <h3 class="app-title">ResteChef</h3>
+                        <p class="app-description">Yapay zeka destekli gıda fazlası yönetimi ve tasarruf uygulaması</p>
+                        <div class="app-tags">
+                            <span class="tag">AI</span>
+                            <span class="tag">Food Tech</span>
+                            <span class="tag">Mobile</span>
+                        </div>
+                        <a href="https://play.google.com/store/apps/details?id=com.restechef.app" target="_blank" class="app-link">
+                            <i class="fas fa-external-link-alt"></i> Uygulamayı Aç
+                        </a>
+                    </div>
+                </div>
+
+                <div class="app-card" data-category="ai" data-aos="flip-left" data-aos-delay="100">
+                    <div class="app-card-inner">
+                        <div class="app-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="app-badge">AI Assistant</div>
+                        <h3 class="app-title">Kitchen AI</h3>
+                        <p class="app-description">Gelişmiş yapay zeka mutfak ve alışveriş asistanı</p>
+                        <div class="app-tags">
+                            <span class="tag">AI</span>
+                            <span class="tag">Assistant</span>
+                            <span class="tag">Web</span>
+                        </div>
+                        <a href="https://kitchenai.ruy.app" target="_blank" class="app-link">
+                            <i class="fas fa-external-link-alt"></i> Uygulamayı Aç
+                        </a>
+                    </div>
+                </div>
+
+                <div class="app-card" data-category="payment" data-aos="flip-left" data-aos-delay="200">
+                    <div class="app-card-inner">
+                        <div class="app-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <div class="app-badge">Payment</div>
+                        <h3 class="app-title">Iyzico FreePay</h3>
+                        <p class="app-description">Ücretsiz Iyzico ödeme altyapısı ve yönetim paneli</p>
+                        <div class="app-tags">
+                            <span class="tag">Payment</span>
+                            <span class="tag">Panel</span>
+                            <span class="tag">Free</span>
+                        </div>
+                        <a href="https://pay.ubd.one" target="_blank" class="app-link">
+                            <i class="fas fa-external-link-alt"></i> Uygulamayı Aç
+                        </a>
+                    </div>
+                </div>
+
+                <div class="app-card" data-category="framework" data-aos="flip-left" data-aos-delay="300">
+                    <div class="app-card-inner">
+                        <div class="app-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="app-badge">Framework</div>
+                        <h3 class="app-title">Coff PHP</h3>
+                        <p class="app-description">Hızlı geliştirme için hafif ve güçlü PHP framework</p>
+                        <div class="app-tags">
+                            <span class="tag">PHP</span>
+                            <span class="tag">Framework</span>
+                            <span class="tag">Open Source</span>
+                        </div>
+                        <a href="https://coff.dev" target="_blank" class="app-link">
+                            <i class="fas fa-external-link-alt"></i> Uygulamayı Aç
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features-section">
+            <div class="section-header">
+                <h2 class="section-title">Neden RUY.APP?</h2>
+                <p class="section-subtitle">Platform özelliklerimiz</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="feature-title">Hızlı ve Güvenilir</h3>
+                    <p class="feature-description">Projeleriniz sorunsuz ve verimli bir şekilde çalışır. Yüksek performans garantisi.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Güvenli</h3>
+                    <p class="feature-description">Verilerinizin güvenliği en üst düzey önlemlerle korunur. SSL ve şifreleme.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Ölçeklenebilir</h3>
+                    <p class="feature-description">Projeleriniz büyüdükçe kolayca ölçeklendirin. Otomatik load balancing.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3 class="feature-title">Cloud Native</h3>
+                    <p class="feature-description">Modern bulut altyapısı ile her yerden erişim. Global CDN desteği.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="feature-title">AI Destekli</h3>
+                    <p class="feature-description">Yapay zeka entegrasyonu ile akıllı çözümler. Machine learning altyapısı.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="feature-title">7/24 Destek</h3>
+                    <p class="feature-description">Her zaman yanınızdayız. Hızlı ve profesyonel destek ekibi.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="cta-content">
+                <h2 class="cta-title">Uygulamanızı Başlatmaya Hazır mısınız?</h2>
+                <p class="cta-description">Projelerinizi RUY.APP ile hayata geçirin ve fark yaratın</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary btn-lg" onclick="openContactPopup()">
+                        <i class="fas fa-rocket"></i> Hemen Başla
+                    </a>
+                    <a href="#" class="btn btn-outline btn-lg" onclick="openFeaturesPopup()">
+                        <i class="fas fa-info-circle"></i> Daha Fazla Bilgi
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">RUY.APP</h3>
+                    <p class="footer-text">Next Generation Application Execution and Publishing Library</p>
+                    <div class="social-icons">
+                        <a href="https://twitter.com/ubden" target="_blank" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://linkedin.com/company/ubden" target="_blank" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://instagram.com/ubden" target="_blank" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://github.com/ubden" target="_blank" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Hızlı Linkler</h4>
+                    <ul class="footer-links">
+                        <li><a href="#apps">Uygulamalar</a></li>
+                        <li><a href="#features">Özellikler</a></li>
+                        <li><a href="#" onclick="openContactPopup()">İletişim</a></li>
+                        <li><a href="https://ubd.one/donate" target="_blank">Bağış Yap</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">İletişim</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-envelope"></i> info@ruy.app</li>
+                        <li><i class="fab fa-whatsapp"></i> +90 850 305 09 19</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Casper, WY 82601</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 RUY.APP - Tüm hakları saklıdır | Powered by <a href="https://ubden.com" target="_blank">❤️ Ubden® Community</a></p>
+            </div>
+        </footer>
     </div>
 
     <!-- Music -->
-    <audio id="background-music" src="code.mp3" autoplay loop></audio>
+    <audio id="background-music" src="code.mp3" loop></audio>
 
     <!-- Features Popup -->
     <div id="features-popup" class="popup">
         <div class="popup-content">
             <span class="close" onclick="closeFeaturesPopup()">&times;</span>
-            <h2>Why Choose Us?</h2>
-            <div class="features-cards">
-                <div class="feature-card">
-                    <h5 class="feature-title">Fast and Reliable</h5>
-                    <p class="feature-description">Our platform ensures your projects run smoothly and efficiently.</p>
+            <h2>Detaylı Özellikler</h2>
+            <div class="features-list">
+                <div class="popup-feature">
+                    <div class="popup-feature-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="popup-feature-content">
+                        <h4>Yüksek Performans</h4>
+                        <p>Optimize edilmiş altyapı ile saniyeler içinde yükleme ve işlem süreleri</p>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <h5 class="feature-title">Secure</h5>
-                    <p class="feature-description">We prioritize the security of your data with top-notch measures.</p>
+                <div class="popup-feature">
+                    <div class="popup-feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="popup-feature-content">
+                        <h4>Kurumsal Güvenlik</h4>
+                        <p>SSL/TLS şifreleme, DDoS koruması ve güvenlik duvarı</p>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <h5 class="feature-title">Scalable</h5>
-                    <p class="feature-description">Easily scale your projects as they grow, without hassle.</p>
+                <div class="popup-feature">
+                    <div class="popup-feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="popup-feature-content">
+                        <h4>Otomatik Ölçeklendirme</h4>
+                        <p>Trafiğiniz arttıkça otomatik olarak kaynak ölçeklendirme</p>
+                    </div>
+                </div>
+                <div class="popup-feature">
+                    <div class="popup-feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="popup-feature-content">
+                        <h4>Mobil Öncelikli</h4>
+                        <p>Tüm cihazlarda mükemmel çalışan responsive tasarım</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -102,17 +368,54 @@
     <div id="contact-popup" class="popup">
         <div class="popup-content">
             <span class="close" onclick="closeContactPopup()">&times;</span>
-            <h2>Contact Information</h2>
-            <div class="contact-info">
-                <p>Email: info@ruy.app</p>
-                <p>Whatsapp: +90 850 305 09 19</p>
-                <p>Address: 312 W 2nd St Unit #A1052 Casper, WY 82601</p>
+            <h2>İletişim</h2>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Email</h4>
+                        <a href="mailto:info@ruy.app">info@ruy.app</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>WhatsApp</h4>
+                        <a href="https://wa.me/908503050919">+90 850 305 09 19</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Adres</h4>
+                        <p>312 W 2nd St Unit #A1052<br>Casper, WY 82601</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h3>Mesaj Gönderin</h3>
+                <form id="contact-form">
+                    <input type="text" placeholder="Adınız" required>
+                    <input type="email" placeholder="Email" required>
+                    <textarea placeholder="Mesajınız" rows="4" required></textarea>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Gönder
+                    </button>
+                </form>
             </div>
         </div>
     </div>
 
-    <!-- GSAP Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/gsap.min.js"></script>
+    <!-- GSAP & AOS Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="scripts.js"></script>
 </body>
 </html>
