@@ -589,7 +589,6 @@ body {
 .app-icon {
     width: 80px;
     height: 80px;
-    background: var(--gradient-1);
     border-radius: 20px;
     display: flex;
     align-items: center;
@@ -599,6 +598,11 @@ body {
     box-shadow: var(--shadow-lg);
     position: relative;
     z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.app-card:hover .app-icon {
+    transform: scale(1.1) rotate(5deg);
 }
 
 .app-badge {

@@ -85,11 +85,11 @@
                 </div>
                 <div class="hero-stats">
                     <div class="stat-item">
-                        <div class="stat-number" data-target="4">0</div>
+                        <div class="stat-number" data-target="11">0</div>
                         <div class="stat-label">Active Apps</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number" data-target="10000">0</div>
+                        <div class="stat-number" data-target="50000">0</div>
                         <div class="stat-label">Users</div>
                     </div>
                     <div class="stat-item">
@@ -120,21 +120,65 @@
                 <div class="filter-tags">
                     <button class="filter-tag active" data-filter="all">All</button>
                     <button class="filter-tag" data-filter="ai">AI</button>
-                    <button class="filter-tag" data-filter="payment">Payment</button>
+                    <button class="filter-tag" data-filter="business">Business</button>
+                    <button class="filter-tag" data-filter="devops">DevOps</button>
                     <button class="filter-tag" data-filter="framework">Framework</button>
+                    <button class="filter-tag" data-filter="tools">Tools</button>
+                    <button class="filter-tag" data-filter="community">Community</button>
                 </div>
             </div>
 
             <!-- Apps Grid -->
             <div class="apps-grid">
-                <div class="app-card" data-category="ai" data-aos="flip-left">
+                <!-- Racy.cc -->
+                <div class="app-card" data-category="business" data-aos="zoom-in">
                     <div class="app-card-inner">
-                        <div class="app-icon">
+                        <div class="app-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div class="app-badge">Business</div>
+                        <h3 class="app-title">Racy Service Manager</h3>
+                        <p class="app-description">Next-generation solution for technical service management with stock, customer, and work order automation</p>
+                        <div class="app-tags">
+                            <span class="tag">Business</span>
+                            <span class="tag">Management</span>
+                            <span class="tag">SaaS</span>
+                        </div>
+                        <a href="https://racy.cc/" target="_blank" class="app-link">
+                            <i class="fas fa-external-link-alt"></i> Launch App
+                        </a>
+                    </div>
+                </div>
+
+                <!-- uCloud Monitor -->
+                <div class="app-card" data-category="tools" data-aos="zoom-in" data-aos-delay="50">
+                    <div class="app-card-inner">
+                        <div class="app-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <div class="app-badge">Monitoring</div>
+                        <h3 class="app-title">uCloud Monitor</h3>
+                        <p class="app-description">iOS and Android network monitoring and tools application with real-time diagnostics</p>
+                        <div class="app-tags">
+                            <span class="tag">Networking</span>
+                            <span class="tag">Mobile</span>
+                            <span class="tag">Tools</span>
+                        </div>
+                        <a href="https://ubd.one/ucloudmonitor" target="_blank" class="app-link">
+                            <i class="fas fa-external-link-alt"></i> Launch App
+                        </a>
+                    </div>
+                </div>
+
+                <!-- ResteChef -->
+                <div class="app-card" data-category="ai" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="app-card-inner">
+                        <div class="app-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
                             <i class="fas fa-utensils"></i>
                         </div>
                         <div class="app-badge">AI Powered</div>
                         <h3 class="app-title">ResteChef</h3>
-                        <p class="app-description">AI-powered food surplus management and savings application with smart recommendations</p>
+                        <p class="app-description">AI-powered recipe generator using leftover ingredients with smart recommendations</p>
                         <div class="app-tags">
                             <span class="tag">AI</span>
                             <span class="tag">Food Tech</span>
@@ -146,9 +190,50 @@
                     </div>
                 </div>
 
-                <div class="app-card" data-category="ai" data-aos="flip-left" data-aos-delay="100">
+                <!-- Vcenterium -->
+                <div class="app-card" data-category="devops" data-aos="zoom-in" data-aos-delay="150">
                     <div class="app-card-inner">
-                        <div class="app-icon">
+                        <div class="app-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <div class="app-badge">Infrastructure</div>
+                        <h3 class="app-title">Vcenterium</h3>
+                        <p class="app-description">vCenter virtual device management platform for external client administration (vCenter 7 & 8 compatible)</p>
+                        <div class="app-tags">
+                            <span class="tag">DevOps</span>
+                            <span class="tag">vCenter</span>
+                            <span class="tag">ESXi</span>
+                        </div>
+                        <a href="https://vcenterium.ruy.app/" target="_blank" class="app-link">
+                            <i class="fas fa-external-link-alt"></i> Launch App
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Coff PHP -->
+                <div class="app-card" data-category="framework" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="app-card-inner">
+                        <div class="app-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="app-badge">Framework</div>
+                        <h3 class="app-title">Coff PHP Framework</h3>
+                        <p class="app-description">Modern PHP framework designed for speed and efficiency with lightweight architecture</p>
+                        <div class="app-tags">
+                            <span class="tag">PHP</span>
+                            <span class="tag">Framework</span>
+                            <span class="tag">Open Source</span>
+                        </div>
+                        <a href="https://coff.dev" target="_blank" class="app-link">
+                            <i class="fas fa-external-link-alt"></i> Launch App
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Kitchen AI -->
+                <div class="app-card" data-category="ai" data-aos="zoom-in" data-aos-delay="250">
+                    <div class="app-card-inner">
+                        <div class="app-icon" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">
                             <i class="fas fa-brain"></i>
                         </div>
                         <div class="app-badge">AI Assistant</div>
@@ -165,9 +250,70 @@
                     </div>
                 </div>
 
-                <div class="app-card" data-category="payment" data-aos="flip-left" data-aos-delay="200">
+                <!-- Instant QR Menu -->
+                <div class="app-card" data-category="business" data-aos="zoom-in" data-aos-delay="300">
                     <div class="app-card-inner">
-                        <div class="app-icon">
+                        <div class="app-icon" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                            <i class="fas fa-qrcode"></i>
+                        </div>
+                        <div class="app-badge">Restaurant</div>
+                        <h3 class="app-title">Instant QR Menu</h3>
+                        <p class="app-description">Database-free, instantly active mobile-friendly QR menu system for restaurants</p>
+                        <div class="app-tags">
+                            <span class="tag">QR Code</span>
+                            <span class="tag">Restaurant</span>
+                            <span class="tag">Mobile</span>
+                        </div>
+                        <a href="https://qrmenu.ruy.app/" target="_blank" class="app-link">
+                            <i class="fas fa-external-link-alt"></i> Launch App
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Game Test Library -->
+                <div class="app-card" data-category="tools" data-aos="zoom-in" data-aos-delay="350">
+                    <div class="app-card-inner">
+                        <div class="app-icon" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <div class="app-badge">Gaming</div>
+                        <h3 class="app-title">Game Test Library</h3>
+                        <p class="app-description">Browser-based game dynamics testing library with multiple game engines</p>
+                        <div class="app-tags">
+                            <span class="tag">Gaming</span>
+                            <span class="tag">Testing</span>
+                            <span class="tag">Browser</span>
+                        </div>
+                        <a href="https://game.ruy.app/" target="_blank" class="app-link">
+                            <i class="fas fa-external-link-alt"></i> Launch App
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Sroject -->
+                <div class="app-card" data-category="business" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="app-card-inner">
+                        <div class="app-icon" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <div class="app-badge">Project Management</div>
+                        <h3 class="app-title">Sroject</h3>
+                        <p class="app-description">Install and run PHP-based project management application with task tracking</p>
+                        <div class="app-tags">
+                            <span class="tag">PHP</span>
+                            <span class="tag">Management</span>
+                            <span class="tag">Self-Hosted</span>
+                        </div>
+                        <a href="https://sroject.ruy.app/" target="_blank" class="app-link">
+                            <i class="fas fa-external-link-alt"></i> Launch App
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Iyzico FreePay -->
+                <div class="app-card" data-category="business" data-aos="zoom-in" data-aos-delay="450">
+                    <div class="app-card-inner">
+                        <div class="app-icon" style="background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);">
                             <i class="fas fa-credit-card"></i>
                         </div>
                         <div class="app-badge">Payment</div>
@@ -184,20 +330,21 @@
                     </div>
                 </div>
 
-                <div class="app-card" data-category="framework" data-aos="flip-left" data-aos-delay="300">
+                <!-- Community Platform -->
+                <div class="app-card" data-category="community" data-aos="zoom-in" data-aos-delay="500">
                     <div class="app-card-inner">
-                        <div class="app-icon">
-                            <i class="fas fa-code"></i>
+                        <div class="app-icon" style="background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);">
+                            <i class="fas fa-users"></i>
                         </div>
-                        <div class="app-badge">Framework</div>
-                        <h3 class="app-title">Coff PHP</h3>
-                        <p class="app-description">Lightweight and powerful PHP framework for rapid development and scalable applications</p>
+                        <div class="app-badge">Community</div>
+                        <h3 class="app-title">Ubden Community</h3>
+                        <p class="app-description">Developer community platform with forums, discussions, and knowledge sharing</p>
                         <div class="app-tags">
-                            <span class="tag">PHP</span>
-                            <span class="tag">Framework</span>
-                            <span class="tag">Open Source</span>
+                            <span class="tag">Community</span>
+                            <span class="tag">Forum</span>
+                            <span class="tag">Discussion</span>
                         </div>
-                        <a href="https://coff.dev" target="_blank" class="app-link">
+                        <a href="https://forum.ubden.com.tr/" target="_blank" class="app-link">
                             <i class="fas fa-external-link-alt"></i> Launch App
                         </a>
                     </div>
