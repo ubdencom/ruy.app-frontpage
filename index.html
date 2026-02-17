@@ -5,7 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title id="page-title">RUY.APP | WE RUN YOUR APP</title>
     <meta name="description" content="Next Generation Application Execution and Publishing Library - Run Your App">
+    <meta name="keywords" content="RUY.APP, app platform, application execution, software publishing, AI apps, DevOps tools, open source">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="author" content="RUY.APP">
     <meta name="theme-color" content="#0f0f23">
+    <link rel="canonical" href="https://ruy.app/">
+    <link rel="alternate" hreflang="en" href="https://ruy.app/?lang=en">
+    <link rel="alternate" hreflang="tr" href="https://ruy.app/?lang=tr">
+    <link rel="alternate" hreflang="x-default" href="https://ruy.app/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="RUY.APP">
+    <meta property="og:url" content="https://ruy.app/">
+    <meta property="og:title" content="RUY.APP | WE RUN YOUR APP">
+    <meta property="og:description" content="Next Generation Application Execution and Publishing Library - Run Your App">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="tr_TR">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="RUY.APP | WE RUN YOUR APP">
+    <meta name="twitter:description" content="Next Generation Application Execution and Publishing Library - Run Your App">
     
     <!-- FontAwesome for Social Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -20,6 +39,24 @@
     
     <!-- Custom Styles -->
     <link rel="stylesheet" href="styles.css">
+
+    <script type="application/ld+json" id="organization-schema">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "RUY.APP",
+      "url": "https://ruy.app/",
+      "email": "info@ruy.app",
+      "description": "Next Generation Application Execution and Publishing Library - Run Your App",
+      "sameAs": [
+        "https://twitter.com/ubden",
+        "https://linkedin.com/company/ubden",
+        "https://instagram.com/ubden",
+        "https://github.com/ubden"
+      ]
+    }
+    </script>
+    <script type="application/ld+json" id="apps-schema"></script>
 </head>
 <body>
 
@@ -47,6 +84,7 @@
                 <a href="#apps" class="nav-link">Apps</a>
                 <a href="#features" class="nav-link">Features</a>
                 <a href="#contact" class="nav-link">Contact</a>
+                <button class="lang-switch" id="lang-switch" type="button" aria-label="Switch language">TR</button>
             </div>
             <div class="nav-toggle" id="nav-toggle">
                 <span></span>
@@ -131,7 +169,7 @@
             <!-- Apps Grid -->
             <div class="apps-grid">
                 <!-- Racy.cc -->
-                <div class="app-card" data-category="business" data-aos="zoom-in">
+                <div class="app-card" data-category="business" data-app-id="racy" data-aos="zoom-in">
                     <div class="app-card-inner">
                         <div class="app-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
                             <i class="fas fa-tools"></i>
@@ -151,7 +189,7 @@
                 </div>
 
                 <!-- uCloud Monitor -->
-                <div class="app-card" data-category="tools" data-aos="zoom-in" data-aos-delay="50">
+                <div class="app-card" data-category="tools" data-app-id="ucloud" data-aos="zoom-in" data-aos-delay="50">
                     <div class="app-card-inner">
                         <div class="app-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
                             <i class="fas fa-network-wired"></i>
@@ -171,7 +209,7 @@
                 </div>
 
                 <!-- Iyzico B2B Panel -->
-                <div class="app-card" data-category="business" data-aos="zoom-in" data-aos-delay="100">
+                <div class="app-card" data-category="business" data-app-id="iyzico" data-aos="zoom-in" data-aos-delay="100">
                     <div class="app-card-inner">
                         <div class="app-icon" style="background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);">
                             <i class="fas fa-handshake"></i>
@@ -191,7 +229,7 @@
                 </div>
 
                 <!-- Vcenterium -->
-                <div class="app-card" data-category="devops" data-aos="zoom-in" data-aos-delay="150">
+                <div class="app-card" data-category="devops" data-app-id="vcenterium" data-aos="zoom-in" data-aos-delay="150">
                     <div class="app-card-inner">
                         <div class="app-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
                             <i class="fas fa-server"></i>
@@ -214,7 +252,7 @@
                 </div>
 
                 <!-- SmartNest Pro -->
-                <div class="app-card" data-category="tools" data-aos="zoom-in" data-aos-delay="200">
+                <div class="app-card" data-category="tools" data-app-id="smartnest" data-aos="zoom-in" data-aos-delay="200">
                     <div class="app-card-inner">
                         <div class="app-icon" style="background: linear-gradient(135deg, #f857a6 0%, #ff5858 100%);">
                             <i class="fas fa-puzzle-piece"></i>
@@ -237,7 +275,7 @@
                 </div>
 
                 <!-- ResteChef -->
-                <div class="app-card" data-category="ai" data-aos="zoom-in" data-aos-delay="250">
+                <div class="app-card" data-category="ai" data-app-id="restechef" data-aos="zoom-in" data-aos-delay="250">
                     <div class="app-card-inner">
                         <div class="app-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
                             <i class="fas fa-utensils"></i>
@@ -257,7 +295,7 @@
                 </div>
 
                 <!-- Coff PHP -->
-                <div class="app-card" data-category="framework" data-aos="zoom-in" data-aos-delay="300">
+                <div class="app-card" data-category="framework" data-app-id="coff" data-aos="zoom-in" data-aos-delay="300">
                     <div class="app-card-inner">
                         <div class="app-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
                             <i class="fas fa-code"></i>
@@ -277,7 +315,7 @@
                 </div>
 
                 <!-- LogiTech VDA Suite -->
-                <div class="app-card" data-category="business" data-aos="zoom-in" data-aos-delay="350">
+                <div class="app-card" data-category="business" data-app-id="logitech" data-aos="zoom-in" data-aos-delay="350">
                     <div class="app-card-inner">
                         <div class="app-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
                             <i class="fas fa-tags"></i>
@@ -300,7 +338,7 @@
                 </div>
 
                 <!-- Instant QR Menu -->
-                <div class="app-card" data-category="business" data-aos="zoom-in" data-aos-delay="400">
+                <div class="app-card" data-category="business" data-app-id="qrmenu" data-aos="zoom-in" data-aos-delay="400">
                     <div class="app-card-inner">
                         <div class="app-icon" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
                             <i class="fas fa-qrcode"></i>
@@ -320,7 +358,7 @@
                 </div>
 
                 <!-- Online Imposter Game -->
-                <div class="app-card" data-category="tools" data-aos="zoom-in" data-aos-delay="450">
+                <div class="app-card" data-category="tools" data-app-id="imposter" data-aos="zoom-in" data-aos-delay="450">
                     <div class="app-card-inner">
                         <div class="app-icon" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);">
                             <i class="fas fa-gamepad"></i>
@@ -340,7 +378,7 @@
                 </div>
 
                 <!-- Lawassist -->
-                <div class="app-card" data-category="business" data-aos="zoom-in" data-aos-delay="500">
+                <div class="app-card" data-category="business" data-app-id="lawassist" data-aos="zoom-in" data-aos-delay="500">
                     <div class="app-card-inner">
                         <div class="app-icon" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
                             <i class="fas fa-balance-scale"></i>
@@ -360,7 +398,7 @@
                 </div>
 
                 <!-- Community Platform -->
-                <div class="app-card" data-category="community" data-aos="zoom-in" data-aos-delay="550">
+                <div class="app-card" data-category="community" data-app-id="ubden" data-aos="zoom-in" data-aos-delay="550">
                     <div class="app-card-inner">
                         <div class="app-icon" style="background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);">
                             <i class="fas fa-users"></i>
