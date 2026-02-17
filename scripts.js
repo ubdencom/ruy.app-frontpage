@@ -287,7 +287,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const appLinks = document.querySelectorAll('.app-link');
 
     let currentFilter = 'all';
-    let currentLanguage = localStorage.getItem('ruy-lang') || 'tr';
+    let currentLanguage = localStorage.getItem('ruy-lang') || 'en';
 
     function updateSeoSchema(lang) {
         const appItems = Array.from(document.querySelectorAll('.app-card')).map((card, index) => {
