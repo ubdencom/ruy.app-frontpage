@@ -1652,3 +1652,456 @@ body.lib-ready.view-grid .lib-stage {
         animation: none;
     }
 }
+
+
+/* ========================================
+   Cinematic hero (Three.js launch sequence)
+   ======================================== */
+#hero-canvas,
+.hero-fx,
+.hero-hud,
+.hero-skip {
+    display: none;
+}
+
+html.hero-3d .hero-section {
+    justify-content: flex-end;
+    padding: 6rem 2rem 5.5rem;
+    min-height: 100vh;
+    background: #0a0a1f;
+}
+
+html.hero-3d .hero-section::before {
+    display: none;
+}
+
+html.hero-3d #hero-canvas {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    -webkit-mask-image: linear-gradient(#000 82%, transparent 100%);
+    mask-image: linear-gradient(#000 82%, transparent 100%);
+}
+
+html.hero-3d .hero-fx {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero-flash {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    background: radial-gradient(circle at 50% 36%, rgba(255, 255, 255, 0.95) 0%, rgba(139, 156, 255, 0.55) 26%, transparent 68%);
+    mix-blend-mode: screen;
+}
+
+.hero-grain {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at 50% 40%, transparent 45%, rgba(5, 5, 20, 0.72) 100%),
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.022) 0 1px, transparent 1px 3px);
+}
+
+html.hero-3d .hero-content {
+    position: relative;
+    z-index: 3;
+}
+
+/* the 3D logo is the headline; keep the h1 for screen readers and search engines */
+html.hero-3d .hero-title {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+html.hero-3d .hero-subtitle { margin-bottom: 0.6rem; }
+html.hero-3d .hero-description { margin-bottom: 1.8rem; }
+html.hero-3d .hero-actions { margin-bottom: 2rem; }
+html.hero-3d .hero-stats { margin-top: 0; }
+
+html.hero-3d .hero-content > * {
+    opacity: 0;
+    transition: opacity 0.9s ease;
+}
+
+html.hero-3d body.hero-ready .hero-content > * {
+    opacity: 1;
+}
+
+html.hero-3d .hero-content > :nth-child(3) { transition-delay: 0.1s; }
+html.hero-3d .hero-content > :nth-child(4) { transition-delay: 0.25s; }
+html.hero-3d .hero-content > :nth-child(5) { transition-delay: 0.4s; }
+html.hero-3d .hero-content > :nth-child(6) { transition-delay: 0.55s; }
+
+html.hero-3d .scroll-indicator {
+    z-index: 3;
+    bottom: 1rem;
+}
+
+html.hero-3d .hero-hud {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.hero-log {
+    position: absolute;
+    top: 5.6rem;
+    left: 2rem;
+    width: min(340px, 40vw);
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    font-size: 0.72rem;
+    line-height: 1.35;
+    color: rgba(165, 180, 252, 0.85);
+}
+
+.hero-log-line {
+    white-space: nowrap;
+    overflow: hidden;
+    animation: heroType 0.55s steps(34, end) both;
+}
+
+.hero-log-line.ok { color: rgba(110, 231, 183, 0.9); }
+.hero-log-line.wait { color: rgba(251, 191, 36, 0.9); }
+.hero-log-line.go { color: #fff; text-shadow: 0 0 12px rgba(139, 156, 255, 0.9); }
+
+@keyframes heroType {
+    from { max-width: 0; }
+    to { max-width: 100%; }
+}
+
+.hero-progress {
+    position: absolute;
+    left: 2rem;
+    bottom: 1.3rem;
+    width: min(340px, 40vw);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.68rem;
+    letter-spacing: 1.5px;
+    color: rgba(199, 210, 254, 0.9);
+}
+
+.hero-phase { min-width: 4.6rem; }
+
+.hero-bar {
+    position: relative;
+    flex: 1;
+    height: 3px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.12);
+    overflow: hidden;
+}
+
+.hero-bar i {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 0;
+    background: linear-gradient(90deg, #6366f1, #f093fb, #4facfe);
+    box-shadow: 0 0 12px rgba(139, 156, 255, 0.9);
+}
+
+.hero-pct { min-width: 2.4rem; text-align: right; }
+
+html.hero-3d .hero-skip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: absolute;
+    top: 5.6rem;
+    right: 2rem;
+    z-index: 4;
+    padding: 0.45rem 1rem;
+    border-radius: 50px;
+    border: 1px solid var(--glass-border);
+    background: rgba(15, 15, 35, 0.55);
+    backdrop-filter: blur(10px);
+    color: var(--text-secondary);
+    font: inherit;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+html.hero-3d .hero-skip:hover {
+    color: #fff;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 18px rgba(99, 102, 241, 0.45);
+}
+
+@media (max-width: 768px) {
+    html.hero-3d .hero-section { padding: 21rem 1.25rem 5rem; }
+    .hero-log { display: none; }
+    .hero-progress { left: 1.25rem; bottom: 1.4rem; width: calc(100% - 9.5rem); }
+    html.hero-3d .hero-skip { top: auto; bottom: 1rem; right: 1rem; }
+    html.hero-3d .scroll-indicator { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-log-line { animation: none; }
+}
+
+/* ========================================
+   Photo band + CTA photo
+   ======================================== */
+.platform-section {
+    padding: 6rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.platform-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.platform-card {
+    position: relative;
+    margin: 0;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    aspect-ratio: 4 / 5;
+    background: var(--dark-card);
+    isolation: isolate;
+    transition: transform 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease;
+}
+
+.platform-card img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    transition: transform 1.2s ease;
+}
+
+.platform-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, rgba(10, 10, 31, 0.1) 25%, rgba(10, 10, 31, 0.92) 100%);
+}
+
+.platform-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary-color);
+    box-shadow: 0 20px 60px rgba(99, 102, 241, 0.3);
+}
+
+.platform-card:hover img {
+    transform: scale(1.08);
+}
+
+.platform-card figcaption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 2rem;
+}
+
+.platform-step {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: 0.9rem;
+    letter-spacing: 3px;
+    background: var(--gradient-3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.platform-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.8rem;
+    font-weight: 900;
+    margin: 0.25rem 0 0.6rem;
+}
+
+.platform-text {
+    color: #c3cbe0;
+    line-height: 1.7;
+}
+
+.cta-photo {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background:
+        linear-gradient(180deg, var(--dark-bg) 0%, rgba(15, 15, 35, 0.35) 35%, rgba(15, 15, 35, 0.35) 65%, var(--dark-bg) 100%),
+        url('assets/img/launch.jpg') center / cover no-repeat;
+    opacity: 0.36;
+}
+
+.photo-credit {
+    margin-top: 0.6rem;
+    font-size: 0.75rem;
+    opacity: 0.75;
+}
+
+@media (max-width: 768px) {
+    .platform-section { padding: 4rem 1rem; }
+    .platform-card { aspect-ratio: 4 / 4.2; }
+}
+
+
+/* ========================================
+   Loader: (Ru)n (Y)our (App) -> RUY.APP
+   ======================================== */
+#loading-screen {
+    cursor: pointer;
+    background:
+        radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.16) 0%, transparent 55%),
+        var(--dark-bg);
+}
+
+.loader {
+    flex-direction: column;
+    gap: 1.4rem;
+}
+
+.loader-word {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: clamp(2rem, 8vw, 3.8rem);
+    letter-spacing: 0.04em;
+    color: #c7d2fe;
+    white-space: nowrap;
+}
+
+.loader-word .lw {
+    display: inline-block;
+    overflow: hidden;
+    max-width: 3em;
+    padding: 0.08em 0.02em;
+    opacity: 0;
+    transform: translateY(0.5em);
+    transition: opacity 0.5s ease, transform 0.5s ease, color 0.5s ease, text-shadow 0.5s ease, max-width 0.9s cubic-bezier(0.7, 0, 0.3, 1), filter 0.7s ease;
+}
+
+.loader-word .sp { max-width: 0.4em; }
+
+.loader-word .dot {
+    max-width: 0;
+    opacity: 0;
+    transform: scale(0.2);
+    color: var(--accent-color);
+}
+
+.ld-show .loader-word .lw:not(.dot) {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(var(--i) * 70ms), calc(var(--i) * 70ms), 0s, 0s, 0s, 0s;
+}
+
+/* the initials R U Y A P P light up, everything else dims */
+.ld-lit .loader-word .keep {
+    color: #fff;
+    text-shadow: 0 0 18px rgba(139, 156, 255, 0.95), 0 0 42px rgba(139, 92, 246, 0.6);
+}
+
+.ld-lit .loader-word .drop {
+    opacity: 0.28;
+}
+
+/* "n", "our" and the spaces dissolve, the rest slides together and the dot ignites */
+.ld-merge .loader-word .drop,
+.ld-merge .loader-word .sp {
+    max-width: 0;
+    opacity: 0;
+    padding: 0;
+    filter: blur(8px);
+    transform: scale(0.3);
+}
+
+.ld-merge .loader-word .lc { text-transform: uppercase; }
+
+.ld-merge .loader-word .dot {
+    max-width: 0.5em;
+    opacity: 1;
+    transform: none;
+    text-shadow: 0 0 22px rgba(245, 158, 11, 0.95);
+}
+
+.ld-done .loader-word .keep {
+    background: linear-gradient(135deg, #c7d2fe 0%, #f0abfc 55%, #a5f3fc 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
+    filter: drop-shadow(0 0 14px rgba(139, 156, 255, 0.8));
+    animation: ldPulse 0.9s ease-out;
+}
+
+@keyframes ldPulse {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.12); }
+    100% { transform: scale(1); }
+}
+
+.loader-bar {
+    width: min(240px, 60vw);
+    height: 3px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+.loader-bar i {
+    display: block;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, #6366f1, #f093fb, #4facfe);
+    box-shadow: 0 0 12px rgba(139, 156, 255, 0.9);
+}
+
+.ld-show .loader-bar i {
+    animation: ldBar 3.3s linear forwards;
+}
+
+@keyframes ldBar {
+    to { width: 100%; }
+}
+
+.loader-cap {
+    min-height: 1.2em;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    color: rgba(165, 180, 252, 0.85);
+}
+
+.loader-cap::before { content: '$ ruy run --your --app'; }
+.ld-lit .loader-cap::before { content: '[ .. ] extracting initials R\00b7U\00b7Y\00b7A\00b7P\00b7P'; color: rgba(251, 191, 36, 0.9); }
+.ld-merge .loader-cap::before { content: '[ ok ] building RUY.APP'; color: rgba(110, 231, 183, 0.9); }
+.ld-done .loader-cap::before { content: '[ \25b6 ] RUNNING'; color: #fff; }
+
+@media (prefers-reduced-motion: reduce) {
+    .loader-word .lw { transition: none; }
+    .ld-done .loader-word .keep { animation: none; }
+}

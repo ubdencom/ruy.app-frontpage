@@ -95,6 +95,16 @@ const LANG_CONTENT = {
         viewToggle: ['3D Library', 'Grid'],
         libraryHint: 'Drag to spin · click a card · ← → keys',
         viewGithub: 'View on GitHub',
+        heroSkip: ['Skip intro', 'Replay intro'],
+        platform: {
+            title: 'Built to Run',
+            subtitle: 'From the first commit to live infrastructure',
+            steps: [
+                ['Build', 'Open-source frameworks and tools take an idea from the first commit to a working app.'],
+                ['Deploy', 'Optimized infrastructure and one-step publishing put your app on real, well-cooled hardware.'],
+                ['Run', 'Monitored, secured and always on — your app keeps running while you focus on what is next.']
+            ]
+        },
         launchApp: 'Launch App',
         viewDocs: 'View Documentation',
         featuresSection: ['Why RUY.APP?', 'Platform features'],
@@ -148,6 +158,16 @@ const LANG_CONTENT = {
         viewToggle: ['3D Kütüphane', 'Izgara'],
         libraryHint: 'Döndürmek için sürükle · karta tıkla · ← → tuşları',
         viewGithub: "GitHub'da Gör",
+        heroSkip: ['Girişi geç', 'Girişi tekrarla'],
+        platform: {
+            title: 'Çalışmak İçin Tasarlandı',
+            subtitle: "İlk commit'ten canlı altyapıya",
+            steps: [
+                ['Geliştir', "Açık kaynak framework ve araçlar, fikri ilk commit'ten çalışan bir uygulamaya taşır."],
+                ['Yayınla', 'Optimize altyapı ve tek adımda yayınlama, uygulamanızı gerçek ve iyi soğutulan donanıma taşır.'],
+                ['Çalıştır', 'İzlenen, korunan ve her an açık — siz sıradaki işe odaklanırken uygulamanız çalışmaya devam eder.']
+            ]
+        },
         launchApp: 'Uygulamayı Aç',
         viewDocs: 'Dokümantasyonu Gör',
         featuresSection: ['Neden RUY.APP?', 'Platform özellikleri'],
@@ -253,13 +273,36 @@ document.addEventListener('DOMContentLoaded', function () {
         AOS.init({ duration: 0, once: true, disable: true });
     }
 
-    setTimeout(() => {
-        const loadingScreen = document.getElementById('loading-screen');
+    // Loading screen: "Run Your App" -> "n" and "our" fade away -> the initials merge into RUY.APP
+    const loadingScreen = document.getElementById('loading-screen');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function finishLoader() {
+        if (window.__ruyLoaded) return;
+        window.__ruyLoaded = true;
         loadingScreen.style.opacity = '0';
-        setTimeout(() => {
-            loadingScreen.style.display = 'none';
-        }, 500);
-    }, 1000);
+        setTimeout(() => { loadingScreen.style.display = 'none'; }, 500);
+        document.dispatchEvent(new CustomEvent('ruy:loaded'));
+    }
+
+    function runLoader() {
+        if (reducedMotion) {
+            loadingScreen.classList.add('ld-show', 'ld-lit', 'ld-merge', 'ld-done');
+            setTimeout(finishLoader, 600);
+            return;
+        }
+        [[0, 'show'], [1100, 'lit'], [1800, 'merge'], [2800, 'done']].forEach(([ms, cls]) => {
+            setTimeout(() => loadingScreen.classList.add('ld-' + cls), ms);
+        });
+        setTimeout(finishLoader, 3500);
+    }
+
+    loadingScreen.addEventListener('click', finishLoader);
+    setTimeout(finishLoader, 7000); // safety net
+    const fontsReady = document.fonts && document.fonts.load
+        ? Promise.race([document.fonts.load('900 1em Orbitron'), new Promise(r => setTimeout(r, 800))])
+        : Promise.resolve();
+    fontsReady.then(runLoader, runLoader);
 
     const navToggle = document.getElementById('nav-toggle');
     const navMenu = document.getElementById('nav-menu');
@@ -473,6 +516,17 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         updateSeoSchema(lang);
+
+        window.RUY_HERO_LABELS = content.heroSkip;
+        const platformHeader = document.querySelectorAll('#platform .section-title, #platform .section-subtitle');
+        if (platformHeader[0]) platformHeader[0].textContent = content.platform.title;
+        if (platformHeader[1]) platformHeader[1].textContent = content.platform.subtitle;
+        document.querySelectorAll('#platform .platform-card').forEach((card, i) => {
+            const step = content.platform.steps[i];
+            if (!step) return;
+            card.querySelector('.platform-title').textContent = step[0];
+            card.querySelector('.platform-text').textContent = step[1];
+        });
 
         // the 3D library redraws its card textures from the translated DOM
         document.dispatchEvent(new CustomEvent('ruy:lang'));

@@ -2,6 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script>
+        /* Cinematic 3D hero: flag early so the static hero never flashes; removed again if WebGL/CDN fails. */
+        (function () {
+            try {
+                var c = document.createElement('canvas');
+                if (c.getContext('webgl2') || c.getContext('webgl')) {
+                    document.documentElement.classList.add('hero-3d');
+                    setTimeout(function () { if (!window.__ruyHeroOk) document.documentElement.classList.remove('hero-3d'); }, 9000);
+                }
+            } catch (e) {}
+        })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title id="page-title">RUY.APP | WE RUN YOUR APP</title>
     <meta name="description" content="Next Generation Application Execution and Publishing Library - Run Your App">
@@ -61,12 +73,14 @@
 <body>
 
     <!-- Loading Screen -->
-    <div id="loading-screen">
+    <div id="loading-screen" role="status" aria-label="Loading RUY.APP">
         <div class="loader">
-            <div class="loader-ring"></div>
-            <div class="loader-ring"></div>
-            <div class="loader-ring"></div>
-            <div class="loading-text">RUY.APP</div>
+            <!-- (Ru)n (Y)our (App): "n" and "our" fade out, the initials merge into RUY.APP -->
+            <div class="loader-word" aria-hidden="true">
+                <span class="lw keep" style="--i:0">R</span><span class="lw keep lc" style="--i:1">u</span><span class="lw drop" style="--i:2">n</span><span class="lw sp" style="--i:3">&nbsp;</span><span class="lw keep" style="--i:4">Y</span><span class="lw drop" style="--i:5">our</span><span class="lw sp" style="--i:6">&nbsp;</span><span class="lw dot">.</span><span class="lw keep" style="--i:7">A</span><span class="lw keep lc" style="--i:8">p</span><span class="lw keep lc" style="--i:9">p</span>
+            </div>
+            <div class="loader-bar" aria-hidden="true"><i></i></div>
+            <div class="loader-cap" aria-hidden="true"></div>
         </div>
     </div>
 
@@ -101,6 +115,21 @@
         
         <!-- Hero Section -->
         <section id="hero" class="hero-section">
+            <!-- Three.js launch sequence (see three-scenes.js) -->
+            <canvas id="hero-canvas" aria-hidden="true"></canvas>
+            <div class="hero-fx" aria-hidden="true">
+                <div class="hero-flash" id="hero-flash"></div>
+                <div class="hero-grain"></div>
+            </div>
+            <div class="hero-hud" aria-hidden="true">
+                <div class="hero-log" id="hero-log"></div>
+                <div class="hero-progress">
+                    <span class="hero-phase" id="hero-phase">BOOT</span>
+                    <div class="hero-bar"><i id="hero-bar-fill"></i></div>
+                    <span class="hero-pct" id="hero-pct">0%</span>
+                </div>
+            </div>
+            <button type="button" class="hero-skip" id="hero-skip"><i class="fas fa-forward"></i> <span>Skip intro</span></button>
             <div class="hero-content">
                 <div class="hero-badge">
                     <span class="badge-icon">🚀</span>
@@ -419,6 +448,40 @@
             </div>
         </section>
 
+        <!-- Platform (photo band) -->
+        <section id="platform" class="platform-section">
+            <div class="section-header">
+                <h2 class="section-title">Built to Run</h2>
+                <p class="section-subtitle">From the first commit to live infrastructure</p>
+            </div>
+            <div class="platform-grid">
+                <figure class="platform-card" data-aos="fade-up">
+                    <img src="assets/img/code.jpg" alt="Developer workspace with code on several screens and a hand sketching an architecture diagram" width="1600" height="900" loading="lazy" decoding="async">
+                    <figcaption>
+                        <span class="platform-step">01</span>
+                        <h3 class="platform-title">Build</h3>
+                        <p class="platform-text">Open-source frameworks and tools take an idea from the first commit to a working app.</p>
+                    </figcaption>
+                </figure>
+                <figure class="platform-card" data-aos="fade-up" data-aos-delay="100">
+                    <img src="assets/img/infrastructure.jpg" alt="Close-up of server cooling fans lit in blue and purple inside a data center" width="1600" height="1067" loading="lazy" decoding="async">
+                    <figcaption>
+                        <span class="platform-step">02</span>
+                        <h3 class="platform-title">Deploy</h3>
+                        <p class="platform-text">Optimized infrastructure and one-step publishing put your app on real, well-cooled hardware.</p>
+                    </figcaption>
+                </figure>
+                <figure class="platform-card" data-aos="fade-up" data-aos-delay="200">
+                    <img src="assets/img/network.jpg" alt="Server racks with glowing network cables in a dark data center" width="1600" height="898" loading="lazy" decoding="async">
+                    <figcaption>
+                        <span class="platform-step">03</span>
+                        <h3 class="platform-title">Run</h3>
+                        <p class="platform-text">Monitored, secured and always on &mdash; your app keeps running while you focus on what is next.</p>
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+
         <!-- Features Section -->
         <section id="features" class="features-section">
             <div class="section-header">
@@ -487,6 +550,7 @@
 
         <!-- CTA Section -->
         <section class="cta-section">
+            <div class="cta-photo" aria-hidden="true"></div>
             <div class="cta-content">
                 <h2 class="cta-title">Ready to Launch Your App?</h2>
                 <p class="cta-description">Bring your projects to life with RUY.APP and make a difference</p>
@@ -542,6 +606,7 @@
             </div>
             <div class="footer-bottom">
                 <p>© 2024 RUY.APP - All rights reserved | Powered by <a href="https://ubden.com" target="_blank">❤️ Ubden® Community</a></p>
+                <p class="photo-credit">Photos on <a href="https://unsplash.com/" target="_blank" rel="noopener">Unsplash</a>: <a href="https://unsplash.com/@ffstop" target="_blank" rel="noopener">Fotis Fotopoulos</a>, <a href="https://unsplash.com/@winstonchen" target="_blank" rel="noopener">Winston Chen</a>, <a href="https://unsplash.com/@tvick" target="_blank" rel="noopener">Taylor Vick</a>, <a href="https://unsplash.com/@mahdibafande" target="_blank" rel="noopener">Mahdi Bafande</a></p>
             </div>
         </footer>
     </div>
@@ -651,7 +716,7 @@
 
     <!-- Three.js: background world + 3D app library (falls back to the 2D grid if WebGL or the CDN is unavailable) -->
     <script type="importmap">
-    { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
+    { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js", "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/" } }
     </script>
     <script type="module" src="three-scenes.js"></script>
 </body>
