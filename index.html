@@ -72,6 +72,8 @@
 
     <!-- Particle Canvas -->
     <canvas id="particle-canvas"></canvas>
+    <!-- Three.js background (replaces the 2D particles when WebGL is available) -->
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
     <!-- Navigation -->
     <nav class="navbar">
@@ -146,7 +148,7 @@
         <section id="apps" class="apps-section">
             <div class="section-header">
                 <h2 class="section-title">App Library</h2>
-                <p class="section-subtitle">Discover modern solutions</p>
+                <p class="section-subtitle">Spin the shelf &mdash; discover modern solutions in 3D</p>
             </div>
 
             <!-- Filter & Search -->
@@ -160,36 +162,74 @@
                     <button class="filter-tag" data-filter="ai">AI</button>
                     <button class="filter-tag" data-filter="business">Business</button>
                     <button class="filter-tag" data-filter="devops">DevOps</button>
+                    <button class="filter-tag" data-filter="security">Security</button>
                     <button class="filter-tag" data-filter="framework">Framework</button>
                     <button class="filter-tag" data-filter="tools">Tools</button>
                     <button class="filter-tag" data-filter="community">Community</button>
                 </div>
+                <!-- Shown by three-scenes.js once WebGL is confirmed -->
+                <div class="view-toggle" role="group" aria-label="Library view">
+                    <button type="button" class="view-btn active" data-view="3d"><i class="fas fa-cube"></i> 3D Library</button>
+                    <button type="button" class="view-btn" data-view="grid"><i class="fas fa-th"></i> Grid</button>
+                </div>
+            </div>
+
+            <!-- 3D Library (progressive enhancement; the grid below is the fallback) -->
+            <div class="lib-stage" id="lib-stage" tabindex="0" aria-label="3D app library. Use the arrow keys to browse, Enter to open the selected app.">
+                <div class="lib-viewport">
+                    <canvas id="lib-canvas"></canvas>
+                    <button type="button" class="lib-nav lib-prev" id="lib-prev" aria-label="Previous app"><i class="fas fa-chevron-left"></i></button>
+                    <button type="button" class="lib-nav lib-next" id="lib-next" aria-label="Next app"><i class="fas fa-chevron-right"></i></button>
+                    <div class="lib-counter" aria-hidden="true"><span id="lib-index">01</span><span class="lib-counter-sep">/</span><span id="lib-total">11</span></div>
+                    <div class="lib-hint" aria-hidden="true"><i class="fas fa-hand-pointer"></i> Drag to spin &middot; click a card &middot; &larr; &rarr; keys</div>
+                </div>
+                <div class="lib-detail" id="lib-detail" aria-live="polite"></div>
             </div>
 
             <!-- Apps Grid -->
             <div class="apps-grid">
-                <!-- Racy.cc -->
-                <div class="app-card" data-category="business" data-app-id="racy" data-aos="zoom-in">
+                <!-- UBDEN Cyber WSL -->
+                <div class="app-card" data-category="security" data-app-id="cyberwsl" data-aos="zoom-in">
                     <div class="app-card-inner">
-                        <div class="app-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                            <i class="fas fa-tools"></i>
+                        <div class="app-icon" style="background: linear-gradient(135deg, #ff512f 0%, #dd2476 100%);">
+                            <i class="fas fa-user-shield"></i>
                         </div>
-                        <div class="app-badge">Business</div>
-                        <h3 class="app-title">Racy Service Manager</h3>
-                        <p class="app-description">Next-generation solution for technical service management with stock, customer, and work order automation</p>
+                        <div class="app-badge">Open Source</div>
+                        <h3 class="app-title">UBDEN Cyber WSL</h3>
+                        <p class="app-description">Windows and Kali WSL platform for authorized penetration testing operations with evidence-backed reporting</p>
                         <div class="app-tags">
-                            <span class="tag">Business</span>
-                            <span class="tag">Management</span>
-                            <span class="tag">SaaS</span>
+                            <span class="tag">Pentest</span>
+                            <span class="tag">Kali WSL</span>
+                            <span class="tag">Open Source</span>
                         </div>
-                        <a href="https://racy.cc/" target="_blank" class="app-link">
+                        <a href="https://github.com/ubden/ubden-cyber-wsl" target="_blank" rel="noopener" class="app-link" data-label="github">
+                            <i class="fab fa-github"></i> View on GitHub
+                        </a>
+                    </div>
+                </div>
+
+                <!-- iPublic -->
+                <div class="app-card" data-category="devops" data-app-id="ipublic" data-aos="zoom-in" data-aos-delay="50">
+                    <div class="app-card-inner">
+                        <div class="app-icon" style="background: linear-gradient(135deg, #0ba360 0%, #3cba92 100%);">
+                            <i class="fas fa-globe-americas"></i>
+                        </div>
+                        <div class="app-badge">DNS &amp; IP</div>
+                        <h3 class="app-title">iPublic</h3>
+                        <p class="app-description">Enterprise infrastructure platform for static IP management, DNS hosting, zero-downtime server migration and zero-trust networking</p>
+                        <div class="app-tags">
+                            <span class="tag">DNS</span>
+                            <span class="tag">Static IP</span>
+                            <span class="tag">Zero-Trust</span>
+                        </div>
+                        <a href="https://ipublic.cc/" target="_blank" rel="noopener" class="app-link">
                             <i class="fas fa-external-link-alt"></i> Launch App
                         </a>
                     </div>
                 </div>
 
                 <!-- uCloud Monitor -->
-                <div class="app-card" data-category="tools" data-app-id="ucloud" data-aos="zoom-in" data-aos-delay="50">
+                <div class="app-card" data-category="tools" data-app-id="ucloud" data-aos="zoom-in" data-aos-delay="100">
                     <div class="app-card-inner">
                         <div class="app-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
                             <i class="fas fa-network-wired"></i>
@@ -209,7 +249,7 @@
                 </div>
 
                 <!-- Iyzico B2B Panel -->
-                <div class="app-card" data-category="business" data-app-id="iyzico" data-aos="zoom-in" data-aos-delay="100">
+                <div class="app-card" data-category="business" data-app-id="iyzico" data-aos="zoom-in" data-aos-delay="150">
                     <div class="app-card-inner">
                         <div class="app-icon" style="background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);">
                             <i class="fas fa-handshake"></i>
@@ -229,7 +269,7 @@
                 </div>
 
                 <!-- Vcenterium -->
-                <div class="app-card" data-category="devops" data-app-id="vcenterium" data-aos="zoom-in" data-aos-delay="150">
+                <div class="app-card" data-category="devops" data-app-id="vcenterium" data-aos="zoom-in" data-aos-delay="200">
                     <div class="app-card-inner">
                         <div class="app-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
                             <i class="fas fa-server"></i>
@@ -252,7 +292,7 @@
                 </div>
 
                 <!-- SmartNest Pro -->
-                <div class="app-card" data-category="tools" data-app-id="smartnest" data-aos="zoom-in" data-aos-delay="200">
+                <div class="app-card" data-category="ai" data-app-id="smartnest" data-aos="zoom-in" data-aos-delay="250">
                     <div class="app-card-inner">
                         <div class="app-icon" style="background: linear-gradient(135deg, #f857a6 0%, #ff5858 100%);">
                             <i class="fas fa-puzzle-piece"></i>
@@ -269,26 +309,6 @@
                             <span class="tag">Open Source</span>
                         </div>
                         <a href="https://smartnest.ruy.app/" target="_blank" class="app-link">
-                            <i class="fas fa-external-link-alt"></i> Launch App
-                        </a>
-                    </div>
-                </div>
-
-                <!-- ResteChef -->
-                <div class="app-card" data-category="ai" data-app-id="restechef" data-aos="zoom-in" data-aos-delay="250">
-                    <div class="app-card-inner">
-                        <div class="app-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-                            <i class="fas fa-utensils"></i>
-                        </div>
-                        <div class="app-badge">AI Powered</div>
-                        <h3 class="app-title">ResteChef</h3>
-                        <p class="app-description">AI-powered recipe generator using leftover ingredients with smart recommendations</p>
-                        <div class="app-tags">
-                            <span class="tag">AI</span>
-                            <span class="tag">Food Tech</span>
-                            <span class="tag">Mobile</span>
-                        </div>
-                        <a href="https://play.google.com/store/apps/details?id=com.restechef.app" target="_blank" class="app-link">
                             <i class="fas fa-external-link-alt"></i> Launch App
                         </a>
                     </div>
@@ -377,28 +397,8 @@
                     </div>
                 </div>
 
-                <!-- Lawassist -->
-                <div class="app-card" data-category="business" data-app-id="lawassist" data-aos="zoom-in" data-aos-delay="500">
-                    <div class="app-card-inner">
-                        <div class="app-icon" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
-                            <i class="fas fa-balance-scale"></i>
-                        </div>
-                        <div class="app-badge">⭐ Favori</div>
-                        <h3 class="app-title">Lawassist</h3>
-                        <p class="app-description">Yapay zeka destekli, çok dilli hukuk dava dosyası hazırlama ve avukat paneli sunan, self-host edilebilir hukuk uygulaması</p>
-                        <div class="app-tags">
-                            <span class="tag">Yapay Zeka</span>
-                            <span class="tag">Çok Dilli</span>
-                            <span class="tag">Self-Hosted</span>
-                        </div>
-                        <a href="https://lawassist.ruy.app/" target="_blank" class="app-link">
-                            <i class="fas fa-external-link-alt"></i> Launch App
-                        </a>
-                    </div>
-                </div>
-
                 <!-- Community Platform -->
-                <div class="app-card" data-category="community" data-app-id="ubden" data-aos="zoom-in" data-aos-delay="550">
+                <div class="app-card" data-category="community" data-app-id="ubden" data-aos="zoom-in" data-aos-delay="500">
                     <div class="app-card-inner">
                         <div class="app-icon" style="background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);">
                             <i class="fas fa-users"></i>
@@ -648,5 +648,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="scripts.js"></script>
+
+    <!-- Three.js: background world + 3D app library (falls back to the 2D grid if WebGL or the CDN is unavailable) -->
+    <script type="importmap">
+    { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
+    </script>
+    <script type="module" src="three-scenes.js"></script>
 </body>
 </html>

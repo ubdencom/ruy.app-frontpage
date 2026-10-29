@@ -37,6 +37,9 @@ class ParticleBackground {
     }
 
     animate() {
+        // three-scenes.js takes over with a WebGL background; stop the 2D loop
+        if (document.body.classList.contains('three-bg')) return;
+
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.particles.forEach((particle, i) => {
@@ -86,9 +89,12 @@ const LANG_CONTENT = {
         heroButtons: ['Explore Apps', 'Get in Touch'],
         heroStats: ['Active Apps', 'Users', '% Satisfaction'],
         scroll: 'Scroll Down',
-        appSection: ['App Library', 'Discover modern solutions'],
+        appSection: ['App Library', 'Spin the shelf — discover modern solutions in 3D'],
         searchPlaceholder: 'Search applications...',
-        filters: ['All', 'AI', 'Business', 'DevOps', 'Framework', 'Tools', 'Community'],
+        filters: ['All', 'AI', 'Business', 'DevOps', 'Security', 'Framework', 'Tools', 'Community'],
+        viewToggle: ['3D Library', 'Grid'],
+        libraryHint: 'Drag to spin · click a card · ← → keys',
+        viewGithub: 'View on GitHub',
         launchApp: 'Launch App',
         viewDocs: 'View Documentation',
         featuresSection: ['Why RUY.APP?', 'Platform features'],
@@ -136,9 +142,12 @@ const LANG_CONTENT = {
         heroButtons: ['Uygulamaları Keşfet', 'İletişime Geç'],
         heroStats: ['Aktif Uygulama', 'Kullanıcı', '% Memnuniyet'],
         scroll: 'Aşağı Kaydır',
-        appSection: ['Uygulama Kütüphanesi', 'Modern çözümleri keşfedin'],
+        appSection: ['Uygulama Kütüphanesi', 'Rafı çevirin — modern çözümleri 3D olarak keşfedin'],
         searchPlaceholder: 'Uygulama ara...',
-        filters: ['Tümü', 'YZ', 'İş', 'DevOps', 'Framework', 'Araçlar', 'Topluluk'],
+        filters: ['Tümü', 'YZ', 'İş', 'DevOps', 'Güvenlik', 'Framework', 'Araçlar', 'Topluluk'],
+        viewToggle: ['3D Kütüphane', 'Izgara'],
+        libraryHint: 'Döndürmek için sürükle · karta tıkla · ← → tuşları',
+        viewGithub: "GitHub'da Gör",
         launchApp: 'Uygulamayı Aç',
         viewDocs: 'Dokümantasyonu Gör',
         featuresSection: ['Neden RUY.APP?', 'Platform özellikleri'],
@@ -177,10 +186,15 @@ const LANG_CONTENT = {
 };
 
 const APPS_I18N = {
-    racy: {
-        category: 'BusinessApplication',
-        en: { badge: 'Business', description: 'Next-generation solution for technical service management with stock, customer, and work order automation', tags: ['Business', 'Management', 'SaaS'] },
-        tr: { badge: 'İş', description: 'Stok, müşteri ve iş emri otomasyonuyla teknik servis yönetimi için yeni nesil çözüm', tags: ['İş', 'Yönetim', 'SaaS'] }
+    cyberwsl: {
+        category: 'SecurityApplication',
+        en: { badge: 'Open Source', description: 'Windows and Kali WSL platform for authorized penetration testing operations with evidence-backed reporting', tags: ['Pentest', 'Kali WSL', 'Open Source'] },
+        tr: { badge: 'Açık Kaynak', description: 'Kanıta dayalı raporlama sunan, yetkili sızma testi operasyonları için Windows ve Kali WSL platformu', tags: ['Sızma Testi', 'Kali WSL', 'Açık Kaynak'] }
+    },
+    ipublic: {
+        category: 'DeveloperApplication',
+        en: { badge: 'DNS & IP', description: 'Enterprise infrastructure platform for static IP management, DNS hosting, zero-downtime server migration and zero-trust networking', tags: ['DNS', 'Static IP', 'Zero-Trust'] },
+        tr: { badge: 'DNS & IP', description: 'Statik IP yönetimi, DNS barındırma, kesintisiz sunucu taşıma ve zero-trust ağ için kurumsal altyapı platformu', tags: ['DNS', 'Statik IP', 'Zero-Trust'] }
     },
     ucloud: {
         category: 'UtilitiesApplication',
@@ -202,11 +216,6 @@ const APPS_I18N = {
         en: { badge: 'Open Source', description: 'AI-Powered advanced nesting solution for professional CNC and laser cutting optimization', tags: ['AI', 'CNC', 'Open Source'] },
         tr: { badge: 'Açık Kaynak', description: 'Profesyonel CNC ve lazer kesim optimizasyonu için yapay zeka destekli gelişmiş yerleşim çözümü', tags: ['YZ', 'CNC', 'Açık Kaynak'] }
     },
-    restechef: {
-        category: 'LifestyleApplication',
-        en: { badge: 'AI Powered', description: 'AI-powered recipe generator using leftover ingredients with smart recommendations', tags: ['AI', 'Food Tech', 'Mobile'] },
-        tr: { badge: 'YZ Destekli', description: 'Artan malzemeleri akıllı önerilerle kullanan yapay zeka destekli tarif üreticisi', tags: ['YZ', 'Gıda Teknolojisi', 'Mobil'] }
-    },
     coff: {
         category: 'DeveloperApplication',
         en: { badge: 'Framework', description: 'Modern PHP framework designed for speed and efficiency with lightweight architecture', tags: ['PHP', 'Framework', 'Open Source'] },
@@ -226,11 +235,6 @@ const APPS_I18N = {
         category: 'GameApplication',
         en: { badge: 'Gaming', description: 'Real-time social deduction game where players uncover imposters in fast multiplayer rounds', tags: ['Gaming', 'Multiplayer', 'Browser'] },
         tr: { badge: 'Oyun', description: 'Oyuncuların hızlı çok oyunculu turlarda sahtekarları bulduğu gerçek zamanlı sosyal çıkarım oyunu', tags: ['Oyun', 'Çok Oyunculu', 'Tarayıcı'] }
-    },
-    lawassist: {
-        category: 'BusinessApplication',
-        en: { badge: '⭐ Favorite', description: 'AI-powered, multilingual legal case preparation and lawyer panel application that can be self-hosted', tags: ['AI', 'Multilingual', 'Self-Hosted'] },
-        tr: { badge: '⭐ Favori', description: 'Yapay zeka destekli, çok dilli hukuk dava dosyası hazırlama ve avukat paneli sunan, self-host edilebilir hukuk uygulaması', tags: ['Yapay Zeka', 'Çok Dilli', 'Self-Hosted'] }
     },
     ubden: {
         category: 'SocialNetworkingApplication',
@@ -397,8 +401,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
         appLinks.forEach(link => {
             const icon = link.querySelector('i')?.outerHTML || '';
-            link.innerHTML = `${icon} ${content.launchApp}`;
+            link.innerHTML = `${icon} ${link.dataset.label === 'github' ? content.viewGithub : content.launchApp}`;
         });
+
+        document.querySelectorAll('.view-btn').forEach((btn, i) => {
+            const icon = btn.querySelector('i')?.outerHTML || '';
+            if (content.viewToggle[i]) btn.innerHTML = `${icon} ${content.viewToggle[i]}`;
+        });
+        const libHint = document.querySelector('.lib-hint');
+        if (libHint) libHint.innerHTML = `<i class="fas fa-hand-pointer"></i> ${content.libraryHint}`;
 
         document.querySelectorAll('.app-info-btn').forEach(btn => btn.title = content.viewDocs);
 
@@ -462,6 +473,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         updateSeoSchema(lang);
+
+        // the 3D library redraws its card textures from the translated DOM
+        document.dispatchEvent(new CustomEvent('ruy:lang'));
     }
 
     function animateCounter(element, target, duration = 2000) {
@@ -515,6 +529,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 card.setAttribute('data-hidden', 'true');
             }
         });
+
+        // let the 3D library re-lay out its ring
+        document.dispatchEvent(new CustomEvent('ruy:filter'));
     }
 
     if (searchInput) searchInput.addEventListener('input', filterApps);

@@ -1348,3 +1348,307 @@ body {
 .mt-2 { margin-top: 1rem; }
 .mt-3 { margin-top: 1.5rem; }
 .mt-4 { margin-top: 2rem; }
+
+/* ========================================
+   Three.js layers
+   ======================================== */
+#bg-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    display: none;
+}
+
+body.three-bg #bg-canvas {
+    display: block;
+}
+
+body.three-bg #particle-canvas {
+    display: none;
+}
+
+/* ========================================
+   3D App Library
+   ======================================== */
+.view-toggle {
+    display: none;
+    padding: 0.3rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    backdrop-filter: blur(10px);
+    gap: 0.25rem;
+}
+
+body.lib-ready .view-toggle {
+    display: inline-flex;
+}
+
+.view-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.25rem;
+    border: none;
+    border-radius: 50px;
+    background: transparent;
+    color: var(--text-secondary);
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.view-btn:hover {
+    color: var(--text-primary);
+}
+
+.view-btn.active {
+    background: var(--gradient-1);
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+}
+
+.lib-stage {
+    display: none;
+    outline: none;
+}
+
+body.lib-ready .lib-stage {
+    display: block;
+}
+
+body.lib-ready:not(.view-grid) .apps-grid {
+    display: none;
+}
+
+body.lib-ready.view-grid .lib-stage {
+    display: none;
+}
+
+.lib-stage:focus-visible .lib-viewport {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.35);
+}
+
+.lib-viewport {
+    position: relative;
+    height: clamp(430px, 66vh, 640px);
+    border: 1px solid var(--glass-border);
+    border-radius: 28px;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 50% 100%, rgba(99, 102, 241, 0.22) 0%, transparent 60%),
+        radial-gradient(ellipse at 50% 0%, rgba(240, 147, 251, 0.08) 0%, transparent 55%),
+        rgba(10, 10, 28, 0.55);
+    backdrop-filter: blur(6px);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#lib-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+    touch-action: pan-y;
+}
+
+#lib-canvas.dragging {
+    cursor: grabbing;
+}
+
+.lib-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--glass-border);
+    background: rgba(15, 15, 35, 0.6);
+    backdrop-filter: blur(10px);
+    color: var(--text-primary);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.lib-nav:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 24px rgba(99, 102, 241, 0.5);
+}
+
+.lib-prev { left: 1rem; }
+.lib-next { right: 1rem; }
+
+.lib-counter {
+    position: absolute;
+    top: 1.1rem;
+    left: 1.5rem;
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    color: var(--text-primary);
+    pointer-events: none;
+}
+
+.lib-counter-sep {
+    margin: 0 0.4rem;
+    color: var(--text-secondary);
+}
+
+#lib-total {
+    color: var(--text-secondary);
+}
+
+.lib-hint {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    background: rgba(15, 15, 35, 0.6);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.lib-detail {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1.5rem;
+    max-width: 960px;
+    margin: 1.5rem auto 0;
+    padding: 1.5rem 2rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    backdrop-filter: blur(20px);
+    min-height: 130px;
+}
+
+.lib-detail.swap {
+    animation: libSwap 0.45s ease;
+}
+
+@keyframes libSwap {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.lib-detail .app-icon {
+    margin: 0;
+}
+
+.lib-detail-top {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.4rem;
+}
+
+.lib-detail-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.lib-detail-badge {
+    padding: 0.25rem 0.8rem;
+    background: var(--gradient-2);
+    border-radius: 50px;
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+.lib-detail-desc {
+    color: var(--text-secondary);
+    margin-bottom: 0.8rem;
+}
+
+.lib-detail .app-tags {
+    margin-bottom: 0;
+}
+
+.lib-detail-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+}
+
+.lib-detail-actions .app-link {
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.lib-info-link {
+    text-align: center;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.lib-info-link:hover {
+    color: var(--primary-color);
+}
+
+.lib-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+    .lib-viewport {
+        height: clamp(380px, 58vh, 520px);
+        border-radius: 22px;
+    }
+
+    .lib-nav {
+        width: 40px;
+        height: 40px;
+    }
+
+    .lib-prev { left: 0.5rem; }
+    .lib-next { right: 0.5rem; }
+
+    .lib-hint {
+        font-size: 0.72rem;
+    }
+
+    .lib-detail {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+        padding: 1.5rem 1.25rem;
+    }
+
+    .lib-detail-top,
+    .lib-detail .app-tags {
+        justify-content: center;
+    }
+
+    .lib-detail-actions {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lib-detail.swap {
+        animation: none;
+    }
+}
