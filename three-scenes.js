@@ -1295,8 +1295,28 @@ function createHero(bloomLib) {
         li.className = `hero-log-line ${entry[2]}`;
         li.textContent = entry[1];
         logEl.appendChild(li);
-        while (logEl.children.length > 8) logEl.removeChild(logEl.firstChild);
+        while (logEl.children.length > 14) logEl.removeChild(logEl.firstChild);
     }
+
+    // endless, random deployment chatter once the scripted boot lines are done
+    const slugs = cards.map((c) => c.dataset.appId || 'app');
+    const pick = (arr) => arr[(Math.random() * arr.length) | 0];
+    const hex = (n) => Array.from({ length: n }, () => ((Math.random() * 16) | 0).toString(16)).join('');
+    const num = (a, b) => a + ((Math.random() * (b - a + 1)) | 0);
+    function randomLogEntry() {
+        const app = pick(slugs);
+        const r = Math.random();
+        if (r < 0.16) return [0, `[ ok ] pull ruy/${app}:latest`, 'ok'];
+        if (r < 0.30) return [0, `[ ok ] ${app}-${hex(4)} started`, 'ok'];
+        if (r < 0.46) return [0, `[ ok ] health ${app} 200 ${num(3, 96)}ms`, 'ok'];
+        if (r < 0.62) return [0, `GET /${app}/status 200 ${num(4, 120)}ms`, ''];
+        if (r < 0.72) return [0, `[ ok ] dns ${app}.ruy.app \u2192 10.0.${num(1, 99)}.${num(2, 254)}`, 'ok'];
+        if (r < 0.79) return [0, `[ ok ] tls renewed ${app}.ruy.app`, 'ok'];
+        if (r < 0.86) return [0, `[ .. ] scaling ${app} x${num(2, 6)}`, 'wait'];
+        if (r < 0.92) return [0, `[warn] ${pick(['eu-west', 'us-east', 'nbg1', 'fra1'])} latency ${num(60, 190)}ms`, 'wait'];
+        return [0, `[ \u25b6 ] deploy #${num(4000, 9999)} live`, 'go'];
+    }
+    let streamIn = 0.5;
 
     // ---------- timeline ----------
     let T = REDUCED ? HERO_END : 0;
@@ -1439,6 +1459,13 @@ function createHero(bloomLib) {
         const pct = Math.round(heroSmooth(clamp(T / 7.4, 0, 1)) * 100);
         if (pct !== lastPct) { lastPct = pct; barEl.style.width = `${pct}%`; pctEl.textContent = `${pct}%`; }
         if (T >= 7.7) reveal();
+        if (T >= 7.9 && MOTION) {
+            streamIn -= dt;
+            if (streamIn <= 0) {
+                pushLog(randomLogEntry());
+                streamIn = 0.25 + Math.random() * 0.9;
+            }
+        }
 
         if (composer) composer.render();
         else renderer.render(scene, camera);

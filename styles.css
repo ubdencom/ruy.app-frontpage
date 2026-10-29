@@ -1763,13 +1763,18 @@ html.hero-3d .hero-hud {
     position: absolute;
     top: 5.6rem;
     left: 2rem;
-    width: min(340px, 40vw);
+    width: min(320px, 40vw);
+    height: 11rem;
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
     gap: 0.2rem;
+    overflow: hidden;
     font-size: 0.72rem;
     line-height: 1.35;
-    color: rgba(165, 180, 252, 0.85);
+    color: rgba(165, 180, 252, 0.8);
+    -webkit-mask-image: linear-gradient(transparent 0%, #000 38%);
+    mask-image: linear-gradient(transparent 0%, #000 38%);
 }
 
 .hero-log-line {
@@ -1953,12 +1958,6 @@ html.hero-3d .hero-skip:hover {
         linear-gradient(180deg, var(--dark-bg) 0%, rgba(15, 15, 35, 0.35) 35%, rgba(15, 15, 35, 0.35) 65%, var(--dark-bg) 100%),
         url('assets/img/launch.jpg') center / cover no-repeat;
     opacity: 0.36;
-}
-
-.photo-credit {
-    margin-top: 0.6rem;
-    font-size: 0.75rem;
-    opacity: 0.75;
 }
 
 @media (max-width: 768px) {
