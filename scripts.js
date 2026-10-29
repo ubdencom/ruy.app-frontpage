@@ -291,6 +291,12 @@ document.addEventListener('DOMContentLoaded', function () {
             setTimeout(finishLoader, 600);
             return;
         }
+        // sound (silent until the browser allows audio after the first gesture)
+        const snd = (fn, ...args) => { if (window.RUYSound && window.RUYSound[fn]) window.RUYSound[fn](...args); };
+        for (let i = 0; i < 10; i++) setTimeout(() => snd('key', 0.8), 80 + i * 70);
+        setTimeout(() => { for (let i = 0; i < 6; i++) setTimeout(() => snd('lock', i), i * 70); }, 1100);
+        setTimeout(() => { snd('dissolve', 1.2); snd('whoosh', 1.0, 'in'); }, 1800);
+        setTimeout(() => snd('confirm'), 2800);
         [[0, 'show'], [1100, 'lit'], [1800, 'merge'], [2800, 'done']].forEach(([ms, cls]) => {
             setTimeout(() => loadingScreen.classList.add('ld-' + cls), ms);
         });
@@ -724,19 +730,6 @@ document.addEventListener('DOMContentLoaded', function () {
             card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
         });
     });
-
-    const backgroundMusic = document.getElementById('background-music');
-    if (backgroundMusic) {
-        document.addEventListener('click', () => {
-            if (backgroundMusic.paused) {
-                backgroundMusic.play().catch(e => {
-                    console.log('Audio play prevented:', e);
-                });
-            }
-        }, { once: true });
-
-        backgroundMusic.volume = 0.3;
-    }
 
     const scrollProgress = document.createElement('div');
     scrollProgress.style.cssText = `

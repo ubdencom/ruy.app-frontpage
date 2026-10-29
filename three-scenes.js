@@ -10,6 +10,8 @@ import * as THREE from 'three';
 
 const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const MOTION = REDUCED ? 0 : 1;
+// synthesized sound (sound.js); every call is a no-op until the browser allows audio
+const S = window.RUYSound || new Proxy({}, { get: () => () => {} });
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
@@ -557,6 +559,7 @@ function createLibrary() {
     function syncSelection() {
         const idx = currentIndex();
         if (idx !== selected || !detailEl.firstElementChild) {
+            if (selected !== -1 && idx !== selected) S.step(idx);
             selected = idx;
             renderDetail();
         }
@@ -578,6 +581,7 @@ function createLibrary() {
         target = wrap ? base + dir : clamp(base + dir, 0, n - 1);
     }
     function launch(tile) {
+        S.launch();
         window.open(tile.info.href, '_blank', 'noopener');
     }
 
@@ -661,7 +665,9 @@ function createLibrary() {
     canvas.addEventListener('pointermove', (e) => {
         updateNdc(e);
         if (!pressed) {
+            const prevHover = hovered;
             hovered = e.pointerType === 'mouse' ? pick() : null;
+            if (hovered && hovered !== prevHover) S.hover();
             canvas.style.cursor = hovered ? 'pointer' : 'grab';
             return;
         }
@@ -1290,12 +1296,16 @@ function createHero(bloomLib) {
     }
     document.addEventListener('ruy:lang', setSkipLabel);
 
-    function pushLog(entry) {
+    function pushLog(entry, random) {
         const li = document.createElement('div');
         li.className = `hero-log-line ${entry[2]}`;
         li.textContent = entry[1];
         logEl.appendChild(li);
         while (logEl.children.length > 14) logEl.removeChild(logEl.firstChild);
+        if (!random) S.key(0.9);
+        else if (entry[1].startsWith('[warn]')) S.warn();
+        else if (entry[2] === 'go') S.go();
+        else S.tick();
     }
 
     // endless, random deployment chatter once the scripted boot lines are done
@@ -1326,6 +1336,22 @@ function createHero(bloomLib) {
     document.addEventListener('ruy:loaded', () => { started = true; });
     let orbitAngle = 0;
     let visible = true;
+
+    // sound cues, fired once as the timeline passes them
+    const cues = [
+        [0.9, () => S.swell(2.6)],
+        [3.3, () => { for (let i = 0; i < 6; i++) setTimeout(() => S.lock(i), i * 75); }],
+        [4.7, () => { S.dissolve(1.8); S.whoosh(1.8, 'in'); }],
+        [6.45, () => S.charge(0.5)],
+        [6.9, () => { S.impact(); S.whoosh(1.5, 'out'); }],
+        [7.4, () => S.confirm()],
+        [8.0, () => S.ambientStart()],
+    ];
+    let cueIdx = 0;
+    let lastT = T;
+    const winFired = windows.map(() => false);
+    function resetCues() { cueIdx = 0; lastT = 0; winFired.fill(false); }
+    if (REDUCED) { cueIdx = cues.length; winFired.fill(true); S.ambientStart(); }
     const cam = { x: 0, y: 0 };
     let fit = 1, halfH = 5, halfW = 8, logoY = 1.8, viewW = 1200;
 
@@ -1363,6 +1389,7 @@ function createHero(bloomLib) {
         if (skipBtn.classList.contains('done')) {
             T = 0;
             playing = true;
+            resetCues();
             resetHud();
         } else {
             T = HERO_END;
@@ -1378,6 +1405,16 @@ function createHero(bloomLib) {
             T = Math.min(HERO_END, T + dt);
             if (T >= HERO_END) { playing = false; finish(); reveal(); }
         }
+        if (T - lastT > 0.6) {
+            // skipped ahead: no intro sounds, just bring in the ambient bed
+            cueIdx = cues.length;
+            winFired.fill(true);
+            S.ambientStart();
+        } else {
+            while (cueIdx < cues.length && T >= cues[cueIdx][0]) cues[cueIdx++][1]();
+            windows.forEach((w, i) => { if (!winFired[i] && T >= w.start) { winFired[i] = true; S.pop(i); } });
+        }
+        lastT = T;
         const u = pMat.uniforms;
         const form = heroSeg(T, 0.9, 3.5);
         const hiT = heroSmooth(heroSeg(T, 3.3, 4.0)) * (1 - heroSmooth(heroSeg(T, 4.8, 5.5)));
@@ -1462,7 +1499,7 @@ function createHero(bloomLib) {
         if (T >= 7.9 && MOTION) {
             streamIn -= dt;
             if (streamIn <= 0) {
-                pushLog(randomLogEntry());
+                pushLog(randomLogEntry(), true);
                 streamIn = 0.25 + Math.random() * 0.9;
             }
         }
